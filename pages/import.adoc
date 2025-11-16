@@ -1,10 +1,10 @@
-= Importing CRD from Console
+= Test Importing CRD from Console
 :revdate: 2024-09-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /05.policy/13.usingcrd/1.import/1.import.md
 :page-opendocs-slug:  /policy/usingcrd/import
 
-== Importing a CRD format file from the Console or API
+== Test Importing a CRD format file from the Console or API
 
 {product-name} supports importing a CRD formatted file from the console. However, this is not the same as applying it in Kubernetes as a custom resource definition (CRD).
 

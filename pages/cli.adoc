@@ -1,10 +1,10 @@
-= Command Line
+= Test Command Line
 :revdate: 2024-09-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /12.troubleshooting/02.cli/02.cli.md
 :page-opendocs-slug:  /tronubleshooting/cli
 
-== Using the {product-name} Command Line
+== Test Using the {product-name} Command Line
 
 The {product-name} solution supports a limited set of functions using the CLI. The CLI is supported through the Manager, which in turn uses a RestAPI to issue commands to the Controller. The Controller then manages the Enforcer(s) appropriately. A complete set of operations is supported through the REST API, which can be exposed directly from the Controller. You can access the {product-name} CLI by typing the cli command for the Manager or Allinone, for example:
 
@@ -22,7 +22,7 @@ Where '`allinone`' is the container name for the Controller. You may need to use
 
 Although the CLI is available through the Manager, we recommend using the xref:automation.adoc[REST API] directly into the controller for querying and automation.
 
-=== CLI Command Examples
+=== Test CLI Command Examples
 
 Here are some of the most common CLI commands:
 
@@ -84,9 +84,9 @@ MODES:
 
 More CLI commands are listed below.
 
-== Command Line Reference & Commands
+== Test Command Line Reference & Commands
 
-=== Login/Logout
+=== Test Login/Logout
 
 [,shell]
 ----
@@ -123,7 +123,7 @@ Options:
   -h, --help  Show this message and exit.
 ----
 
-=== User
+=== Test User
 
 [,shell]
 ----
@@ -181,7 +181,7 @@ Options:
   -h, --help  Show this message and exit.
 ----
 
-=== Policy
+=== Test Policy
 
 [,shell]
 ----
@@ -318,7 +318,7 @@ Commands:
 SEE System (below)
 ----
 
-=== Quarantine
+=== Test Quarantine
 
 [,shell]
 ----
@@ -334,7 +334,7 @@ Commands:
   quarantine  Set container quarantine state.
 ----
 
-=== System
+=== Test System
 
 [,shell]
 ----
@@ -398,7 +398,7 @@ Commands:
   syslog_server  Unset syslog server address.
 ----
 
-=== Vulnerability Scan
+=== Test Vulnerability Scan
 
 [,shell]
 ----
@@ -513,7 +513,7 @@ Options:
   -h, --help  Show this message and exit.
 ----
 
-=== Show/Debug commands
+=== Test Show/Debug commands
 
 [,shell]
 ----
@@ -731,7 +731,7 @@ Options:
   -h, --help           Show this message and exit.
 ----
 
-=== Export/Import
+=== Test Export/Import
 
 [,shell]
 ----
@@ -757,7 +757,7 @@ Options:
   -h, --help  Show this message and exit.
 ----
 
-==== Packet Sniffer
+==== Test Packet Sniffer
 
 [NOTE]
 ====

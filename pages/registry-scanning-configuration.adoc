@@ -1,4 +1,4 @@
-= Registry Scanning Configuration
+= Test Registry Scanning Configuration
 :revdate: 2025-06-25
 :page-revdate: {revdate}
 :page-opendocs-origin: /06.scanning/02.registry/02.registry.md
@@ -17,7 +17,7 @@ To increase registry scanning performance and scalability, multiple scanner pods
 
 For multi-cluster (federated) environments, the primary (master) cluster can scan a registry/repo designated as a federated registry. The scan results from these registries will be synchronized to all managed (remote) clusters. This enables display of scan results in the managed cluster console as well as use of the results in admission control rules of the managed cluster. Registries only need to be scanned once instead of by each cluster, reducing CPU/memory and network bandwidth usage. See the xref:multicluster.adoc[multi-cluster] section for more details.
 
-== Configure Registry Scanning
+== Test Configure Registry Scanning
 
 To configure registries and repositories to be scanning, go to the Assets -> Registries menu in the {product-name} console. Add or edit registries to be scanned. Use the Filter to define repositories or subsets of images to be scanned. If your registry requires access through a proxy, this can be configured in Settings -> Configuration.
 
@@ -47,7 +47,7 @@ Scanning is supported for images on public and private docker registries that ar
 
 At least one repository filter is required (can't be left blank).
 
-=== Repository filter examples
+=== Test Repository filter examples
 
 image:1-filter-examples.png[filters]
 
@@ -59,7 +59,7 @@ image:1-filter-examples.png[filters]
 . Regular expressions can be used in a filter. For example alpine:3.[8|9].* will scan all 3.8.x and 3.9.x images and tags on docker hub.
 ====
 
-=== Registry scan options
+=== Test Registry scan options
 
 * Scan Layers:
 ** Provides vulnerability scan result for every image layer separately
@@ -76,13 +76,13 @@ image:1-filter-examples.png[filters]
 * Rescan after CVE DB update
 ** Enable this option to rescan all images after the vulnerability database is updated.
 
-=== Configuring Proxy server for Registry
+=== Test Configuring Proxy server for Registry
 
 Please go to Settings -> Configuration to configure proxy settings for registry scanning.
 
-=== Native Docker registry (also Quay and Harbor)
+=== Test Native Docker registry (also Quay and Harbor)
 
-==== Add Native Docker registry
+==== Test Add Native Docker registry
 
 * Choose Docker registry as type
 * Give unique name to the registry
@@ -114,7 +114,7 @@ image:4-dockerpub-wild.png[docker4]
 image:https://user-images.githubusercontent.com/13239496/218163999-9b281bd9-d049-49f6-85cd-395d7c20c481.png[4 1-quay]
 ====
 
-==== Start scanning the Docker registry
+==== Test Start scanning the Docker registry
 
 * Select registry to be scanned
 * Click start button to scan
@@ -123,7 +123,7 @@ image:https://user-images.githubusercontent.com/13239496/218163999-9b281bd9-d049
 
 image:5-scandocker.png[scandocker]
 
-==== View the scan result
+==== Test View the scan result
 
 * Click on an image from images pane to view the scan result for the image.
 * Access the scan result to find the vulnerability status of the image.
@@ -138,11 +138,11 @@ Example showing layer scan result of an image, which shows vulnerabilities of ea
 
 image:image_scan_4.png[layered]
 
-=== Amazon ECR Registry
+=== Test Amazon ECR Registry
 
 Ref:  https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html
 
-==== Add Amazon ECR registry
+==== Test Add Amazon ECR registry
 
 * Choose Amazon registry as type
 * Give unique name to the registry
@@ -161,11 +161,11 @@ Ref:  https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html
 
 image:9-aws.png[aws]
 
-=== Redhat registry
+=== Test Redhat registry
 
 Ref:  https://access.redhat.com/containers
 
-==== Add Red Hat registry
+==== Test Add Red Hat registry
 
 * Choose Redhat registry as type
 * Give unique name to the registry
@@ -179,9 +179,9 @@ Ref:  https://access.redhat.com/containers
 
 image:10-redhat.png[redhat]
 
-=== Openshift registry
+=== Test Openshift registry
 
-==== Add OpenShift registry with username and password
+==== Test Add OpenShift registry with username and password
 
 * Choose OpenShift registry as type
 * Give unique name to the registry
@@ -196,7 +196,7 @@ image:10-redhat.png[redhat]
 
 image:1a_openshift.png[openshift]
 
-==== Add OpenShift registry with token
+==== Test Add OpenShift registry with token
 
 * Choose OpenShift registry as type
 * Give unique name to the registry
@@ -220,18 +220,18 @@ image:1a_openshift.png[openshift]
 
 image:1a_openshift_token.png[openshift]
 
-==== Stability issues in Openshift 3.7 Registry
+==== Test Stability issues in Openshift 3.7 Registry
 
 In OpenShift 3.7, API calls to pull container image metadata or to download an image can fail randomly. It can also fail on random images in different scan runs. You may see incomplete image lists or scans may fail on some images when this happens. If this occurs, the repository can be rescanned.
 
-=== JFrog Artifactory
+=== Test JFrog Artifactory
 
 Adding JFrog Artifactory registry (Docker Access method -- Repository Path)
 JFrog management page admin->HTTP Setting showing docker access method  - Repository Path
 
 image:12-jfrog.png[jfrog]
 
-==== Add JFrog Artifactory registry (Docker Access method -- Repository Path)
+==== Test Add JFrog Artifactory registry (Docker Access method -- Repository Path)
 
 * Choose JFrog Artifactory as type
 * Give a unique name to the registry
@@ -244,7 +244,7 @@ image:12-jfrog.png[jfrog]
 ** The wildcard must be preceded by the full name, path, or starting string
 ** &#42; to scan all tags
 
-==== Adding JFrog Artifactory registry (Docker Access method -- subdomain)
+==== Test Adding JFrog Artifactory registry (Docker Access method -- subdomain)
 
 JFrog management page admin->HTTP Setting showing docker access method -- Sub Domain
 
@@ -277,7 +277,7 @@ Adding subdomain based JFrog registry to scan all tags from all subdomains
 
 image:jfrog_all_subs.png[all]
 
-==== Add JFrog Artifactory registry (Docker Access method -- port)
+==== Test Add JFrog Artifactory registry (Docker Access method -- port)
 
 JFrog management page admin->HTTP Setting showing docker access method - Port
 
@@ -320,7 +320,7 @@ Showing scanned result for docker-local registry
 
 image:jfrogport6.png[jfrogport]
 
-==== Add SaaS JFrog Artifactory registry (Docker access method -- Port)
+==== Test Add SaaS JFrog Artifactory registry (Docker access method -- Port)
 
 Choose JFrog Artifactory as type
 
@@ -334,35 +334,35 @@ Choose JFrog Artifactory as type
 
 image:jfrog_saas.png[jfrogsaas]
 
-==== Start Scanning a JFrog Artifactory Registry
+==== Test Start Scanning a JFrog Artifactory Registry
 
 * Select registry to be scanned
 * Click start button to scan
 * Wait until status changes from scanning to idle
 ** Scanning time varies depending on the size of the repository
 
-=== Google Container Registry
+=== Test Google Container Registry
 
 Ref:
 https://cloud.google.com/container-registry/docs/advanced-authentication
 https://cloud.google.com/container-registry/docs/advanced-authentication#json_key_file
 
-==== Enable Cloud Resource Manager API for the project
+==== Test Enable Cloud Resource Manager API for the project
 
 Google Cloud Platform->Choose Project->API and Services->Enable APIS and Services->Search "`Cloud Resource Manager API`"->Enable API
 https://console.cloud.google.com/apis/library?project=nvtest-219600&q=Cloud%20Resource%20Manager%20API   (change project name)
 
 image:17-gcp.png[gcp]
 
-==== Create key for container service account
+==== Test Create key for container service account
 
 Google Cloud Platform->IAM->Service Account->account with container registry->CreateKey(action)
 
 image:18-gcpiam.png[gcpiam]
 
-==== Copy json file to client machine
+==== Test Copy json file to client machine
 
-==== Add Google Container Registry from the {product-name} GUI
+==== Test Add Google Container Registry from the {product-name} GUI
 
 * Choose Google registry as type
 * Give unique name to the registry
@@ -375,19 +375,19 @@ image:18-gcpiam.png[gcpiam]
 
 image:19-gcpscan.png[gcpscan]
 
-==== Start Scanning a Google Container Registry
+==== Test Start Scanning a Google Container Registry
 
 * Select registry to be scanned
 * Click start button to scan
 * Wait until status changes from scanning to idle
 ** Scanning time varies depending on the size of the repository
 
-=== Azure Container Registry
+=== Test Azure Container Registry
 
 Ref:
 https://azure.microsoft.com/en-us/services/container-registry/
 
-==== Obtain Azure container username and password as shown below
+==== Test Obtain Azure container username and password as shown below
 
 Azure container registry -> user-> access keys->password
 
@@ -395,7 +395,7 @@ Showing azure portal username and password for container registry access
 
 image:20-azure.png[azure]
 
-==== Add Azure Container Registry from the {product-name} GUI
+==== Test Add Azure Container Registry from the {product-name} GUI
 
 * Choose Azure registry as type
 * Give unique name to the registry
@@ -416,20 +416,20 @@ Adding Azure container registry to scan all tags
 
 image:22-azureadd.png[azureadd]
 
-==== Start Scanning a Azure Container Registry
+==== Test Start Scanning a Azure Container Registry
 
 * Select registry to be scanned
 * Click start button to scan
 * Wait until status changes from scanning to idle
 ** Scanning time varies depending on the size of the repository
 
-=== Sonatype Nexus Docker registry
+=== Test Sonatype Nexus Docker registry
 
 Ref:
 https://help.sonatype.com/repomanager3/private-registry-for-docker
 https://hub.docker.com/r/sonatype/nexus3/
 
-==== Add Sonatype Nexus Docker registry
+==== Test Add Sonatype Nexus Docker registry
 
 * Choose Sonatype Nexus as type
 * Give unique name to the registry
@@ -445,22 +445,22 @@ Adding Sonatype Nexus docker registry with username/password and repository &#42
 
 image:23-sonatype.png[sonatype]
 
-==== Start scanning Sonatype Nexus Docker registry
+==== Test Start scanning Sonatype Nexus Docker registry
 
 * Select registry to be scanned
 * Click start button to scan
 * Wait till status changes from scanning to idle
 ** Scanning time varies depending on the size of the repository
 
-=== Gitlab Container Registry
+=== Test Gitlab Container Registry
 
-==== Sample GitLab Environmnent Configurations
+==== Test Sample GitLab Environmnent Configurations
 
 [,bash]
 ----
 sudo docker run --detach \
   --hostname gitlab \
-  --env GITLAB_OMNIBUS_CONFIG="external_url 'http://10.1.7.73:9096'; gitlab_rails['lfs_enabled'] = true;" \
+  --env GITLAB_OMNIBUS_CONFIG="external_url 'http://10.1.7.73:9096'; gitlab_rails['lfs_enabled'] = Test true;" \
   --publish 10.1.7.73:9095:9095 --publish 10.1.7.73:9096:9096 --publish 10.1.7.73:6222:22 \
   --name gitlab \
   --restart always \
@@ -472,7 +472,7 @@ External_URL:  http://10.1.7.73:9096
 Registry_URL: https://10.1.7.73:9095
 ----
 
-==== Obtain Gitlab private token as shown below
+==== Test Obtain Gitlab private token as shown below
 
 * Navigate to the settings page from the icon located at the upper-righthand corner of the GitLab login page as illustrated below:
 
@@ -490,7 +490,7 @@ image:gitlabpersonaltoken_new.png[gitlab]
 
 image:gitlabaccesstoken.png[gitlab]
 
-==== Obtaining External and Registry URLs
+==== Test Obtaining External and Registry URLs
 
 External-URL:   The external url is the API-Server's URL. +
 Registry-URL:  This can be obtained from the Container Registry page of the GitLab webconsole.  One way to get to this page is navigating from the GitLab's webconsole from Projects > Your Projects > Administrator / ... > Left-Pane (Container Registry) > Mouse-over (root/.../)
@@ -499,7 +499,7 @@ The following is a sample screen-capture of the page that reveals both the Exter
 
 image:gitlabexternalurl.png[gitlab]
 
-==== Add Gitlab Registry from the {product-name} Console
+==== Test Add Gitlab Registry from the {product-name} Console
 
 * Choose Gitlab as the registry type
 * Give unique name to the registry
@@ -514,11 +514,11 @@ image:gitlabregistryscan.png[gitlab]
 The Registry URL is used for pulling images into the {product-name} scanner-platform from GitLab to do registry scanning.  While the External URL is used for retrieving a list of images, registries, and metadata used by the registry scanning feature.
 ====
 
-=== IBM Cloud Container Registry
+=== Test IBM Cloud Container Registry
 
 Ref:  https://www.ibm.com/cloud/container-registry
 
-==== Add IBM Container registry
+==== Test Add IBM Container registry
 
 * Choose IBM Cloud Container Registry as type
 * Give unique name to the registry
@@ -546,7 +546,7 @@ image:ibm-1.png[ibm]
 The username for the registry authentication must be 'iamapikey'
 ====
 
-=== Harbor Registry
+=== Test Harbor Registry
 
 Use the same instructions as the Native Docker registry, choosing **Harbor Registry** as the registry.
 
@@ -554,11 +554,11 @@ image::https://github.com/user-attachments/assets/9d382fde-7be4-423d-8401-c1034a
 
 The filter field can not be left blank. Enter a repository filter, or add filter as * to scan all repositories.
 
-=== GitHub Container Registry
+=== Test GitHub Container Registry
 
 Available in NeuVector v5.4.3 and later, image scanning is now supported from the https://ghcr.io[GitHub Container Registry (GHCR)], enabling users to include images stored in GitHub in their security and compliance workflows.
 
-==== Add the GitHub Container Registry
+==== Test Add the GitHub Container Registry
 
 To configure the GHCR in NeuVector, go to **Add Registry** and select **GitHub Container Registry** from the registry type dropdown.
 
@@ -581,7 +581,7 @@ To configure the GHCR in NeuVector, go to **Add Registry** and select **GitHub C
 | Specify the namespace to scan (e.g., `github_user/hello-world:*` or `repo/package_name:version`).
 |===
 
-==== Token Permissions
+==== Test Token Permissions
 
 To access GHCR, you must generate a GitHub token with the following scopes:
 
@@ -590,7 +590,7 @@ To access GHCR, you must generate a GitHub token with the following scopes:
 
 You can create a token https://github.com/settings/tokens[here].
 
-==== Troubleshooting
+==== Test Troubleshooting
 
 If you encounter issues such as `403 Forbidden` or `invalid credentials`, please ensure:
 

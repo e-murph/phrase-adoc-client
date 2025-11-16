@@ -1,10 +1,10 @@
-= Restoring {product-name} Configuration
+= Test Restoring {product-name} Configuration
 :revdate: 2024-09-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /02.deploying/11.restore/11.restore.md
 :page-opendocs-slug: /deploying/restore
 
-== Restoring {product-name} Configuration
+== Test Restoring {product-name} Configuration
 
 A backup of the {product-name} configuration can be applied to restore a previous configuration of {product-name}. The backup file can be generated manually as well as imported from the console in Settings -> Configuration, choosing all configuration (e.g. registry configurations, integrations, other settings plus policy) or Policy only (e.g. rules/security policy). The rest API can also be used to automatically backup the configuration, as seen in this xref:automation.adoc#_exportimport_configuration_file[example].
 
@@ -25,7 +25,7 @@ The backup configuration files should not be edited in any way. Any changes to t
 Backup configuration files should be used to restore a {product-name} state on the same cluster from which they were exported. Applying a backup configuration file from a different cluster could result in unpredictable results.
 ====
 
-=== Recommended High Availability Settings
+=== Test Recommended High Availability Settings
 
 Manual backup and restore of configuration should be planned only as a last resort. The following steps are recommended for high availability.
 

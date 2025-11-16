@@ -1,10 +1,10 @@
-= Federated Policy
+= Test Federated Policy
 :revdate: 2024-09-25
 :page-revdate: {revdate}
 :page-opendocs-origin: /05.policy/12.federated/12.federated.md
 :page-opendocs-slug:  /policy/federated
 
-== Federated Policy
+== Test Federated Policy
 
 After a Master cluster has been created, Federated rules can be created in the Master which are automatically propagated to each cluster. This is useful to create global rules that should be applied to each cluster, such as global network rules. Federated rules will appear in every cluster as read-only and can NOT be deleted or edited by the local admin of the cluster.
 

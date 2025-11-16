@@ -1,10 +1,10 @@
-= Gitlab
+= Test Gitlab
 :revdate: 2024-09-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /06.scanning/03.build/05.gitlab/05.gitlab.md
 :page-opendocs-slug:  /scanning/build/gitlab
 
-== Scan for Vulnerabilities during Gitlab Build Pipeline
+== Test Scan for Vulnerabilities during Gitlab Build Pipeline
 
 {product-name} can be configured to scan for vulnerabilities triggered in the Gitlab build pipeline. There is a https://gitlab.com/neuvector/gitlab-plugin[Gitlab plug-in here] which can be configured and used. Please follow the instructions on the gitlab site for using the plugin.
 
@@ -12,7 +12,7 @@ The scan can also use the {product-name} REST API by configuring the provided sc
 
 In addition, make sure there is a {product-name} scanner container deployed and configured to connect to the Allinone or Controller. In 4.0 and later, the neuvector/scanner container must be deployed separate from the allinone or controller.
 
-=== Scan During Gitlab Build Using REST API
+=== Test Scan During Gitlab Build Using REST API
 
 Use the following script, configured for your {product-name} login credentials to trigger the vulnerability scans.
 
@@ -60,11 +60,11 @@ Use the following script, configured for your {product-name} login credentials t
     - docker run -itd --privileged --name neuvector.controller -e CLUSTER_JOIN_ADDR=$CI_SERVER_HOST -p 18301:18301 -p 18301:18301/udp -p 18300:18300 -p 18400:18400  -p $NV_PORT:$NV_PORT -v /var/neuvector:/var/neuvector -v /var/run/docker.sock:/var/run/docker.sock -v /proc:/host/proc:ro -v /sys/fs/cgroup/:/host/cgroup/:ro $NV_IMAGE
     - |
       _COUNTER_="0"
-      while [ -z "$TOKEN" -a "$_COUNTER_" != "12" ]; do
+      while [ -z "$TOKEN" -a "$_COUNTER_" != Test "12" ]; do
         _COUNTER_=$((( _COUNTER_ + 1 )))
         sleep 5
         TOKEN=`(curl -s -f $NV_API_AUTH_URL -k -H "Content-Type:application/json" -d $NV_LOGIN_JSON || echo null) | jq -r '.token.token'`
-        if [ "$TOKEN" = "null" ]; then
+        if [ "$TOKEN" = Test "null" ]; then
           TOKEN=""
         fi
       done

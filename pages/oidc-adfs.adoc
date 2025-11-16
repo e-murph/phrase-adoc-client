@@ -1,10 +1,10 @@
-= OpenID Connect (OIDC) for ADFS
+= Test OpenID Connect (OIDC) for ADFS
 :revdate: 2024-09-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /08.integration/08.oidc_adfs/08.oidc_adfs.md
 :page-opendocs-slug:  /integration/oidc_adfs
 
-== Integrating with OpenID Connect (OIDC) for ADFS
+== Test Integrating with OpenID Connect (OIDC) for ADFS
 
 From AD FS Management, click on "Application Groups" and then click on "Add Application Group..."
 
@@ -58,7 +58,7 @@ image:adfs13.png[adfs]
 
 image:adfs14.png[adfs]
 
-=== {product-name} Setup
+=== Test {product-name} Setup
 
 * Identity Provider Issuer: "https://<adfs-fqdn>/adfs"
 * Client ID: It is a "Client Identifier" showing in "Server application" dialog in "Add Application Group Wizard"
