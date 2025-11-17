@@ -1,18 +1,6 @@
 ==========================================================
-NOTICE file for GitHub to GitHub files transfer
+NOTICE file for Phrase TMS ↔ GitHub Automation Workflow
 ==========================================================
-
-This software includes components from the following open-source projects, which are also licensed under the Apache License, Version 2.0.
-
-1.  **EasyOCR**
-    * Copyright (c) 2020-present Jaided AI
-    * This component is used for its optical character recognition capabilities.
-    * Project Homepage: [https://github.com/JaidedAI/EasyOCR](https://github.com/JaidedAI/EasyOCR)
-
-2.  **PaddleOCR**
-    * Copyright (c) 2020-present PaddlePaddle Authors
-    * This component is used for its advanced OCR models and text detection.
-    * Project Homepage: [https://github.com/PaddlePaddle/PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR)
 
 Use of these components is subject to the terms and conditions of the Apache License, Version 2.0.
 
