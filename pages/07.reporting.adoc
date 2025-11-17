@@ -1,4 +1,4 @@
-= Test Reporting
+= Test_TwoReporting
 :revdate: 2024-09-25
 :page-revdate: {revdate}
 :page-opendocs-origin: /07.reporting/07.reporting.md

@@ -1,16 +1,16 @@
-= Test Admission Controls
+= Test_TwoAdmission Controls
 :revdate: 2025-06-25
 :page-revdate: {revdate}
 :page-opendocs-origin: /05.policy/03.admission/03.admission.md
 :page-opendocs-slug:  /policy/admission
 
-== Test Controlling Image / Container Deployments
+== Test_TwoControlling Image / Container Deployments
 
 With Admission Control integration with orchestration platforms such as Kubernetes and OpenShift, {product-name} is playing an important role within the orchestration platform's deployment pipeline. Whenever a cluster resource such as Deployment is created, the request from the cluster apiserver will be passed to one of the {product-name} Controllers to determine if it should be allowed to deploy or denied based on the user-defined Admission Control rules prior to creating the cluster resource. The policy decision {product-name} makes will be passed back to cluster apiserver for enforcement.
 
 This feature is supported in Kubernetes 1.9+ and Openshift 3.9+. Before using the Admission Control function in {product-name}, while it's possible to setup admission control from `--admission-control` argument passed to the cluster apiserver, it's recommended to use dynamic admission control. Please see Kubernetes and Openshift sections below for configuration.
 
-=== Test Kubernetes
+=== Test_TwoKubernetes
 
 The ValidatingAdmissionWebhook and MutatingAdmissionWebhook plugins are enabled by default.
 
@@ -22,7 +22,7 @@ kubectl api-versions | grep admissionregistration
 admissionregistration.k8s.io/v1beta1
 ----
 
-=== Test Openshift
+=== Test_TwoOpenshift
 
 The ValidatingAdmissionWebhook and MutatingAdmissionWebhook plugins are NOT enabled by default. Please see the examples in the OpenShift deployment sections for instructions on how to enable these. A restart of the OpenShift api and controllers services is required.
 
@@ -34,7 +34,7 @@ oc api-versions | grep admissionregistration
 admissionregistration.k8s.io/v1beta1
 ----
 
-== Test Enabling Admission Control (Webhook) in {product-name}
+== Test_TwoEnabling Admission Control (Webhook) in {product-name}
 
 The Admission Control feature is disabled by default. Please go to Policy -> Admission Control page to enable it in the {product-name} console.
 
@@ -65,11 +65,11 @@ image:ac_advanced.png[Advanced]
 
 For special cases, the URL access method using the NodePort service may be required.
 
-== Test Admission Control Events/Notifications
+== Test_TwoAdmission Control Events/Notifications
 
 All admission control events for allowed and denied events can be found in the Notifications -> Security Risks menu.
 
-== Test Admission Control Criteria
+== Test_TwoAdmission Control Criteria
 
 {product-name} supports many criteria for creating an Admission Control Rule. These include CVE High Count, CVE Names, image labels, imageScanned, namespace, user, runAsRoot, etc. There are two possible sources of criteria evaluation, Image Scans and Deployment Yaml file scans. If a criterion requires an image scan, the scan results from Registry Scanning will be used. If the image was not scanned, the admission control rule will not be applied. If a criterion requires scanning of the deployment yaml, it will be evaluated from the Kubernetes deployment. Some criteria will use the results  from either an image scan OR a deployment yaml scan.
 
@@ -89,7 +89,7 @@ The matching logic for multiple criteria in one admission control rule is:
 ** Apply 'and' for all negative matches("not contains any", "is not one of") until the first positive match;
 ** After the first positive match, apply 'or'
 
-=== Test Example with Matching a Pod Label
+=== Test_TwoExample with Matching a Pod Label
 
 [,yaml]
 ----
@@ -110,7 +110,7 @@ The rule to match would be:
 
 image:ac_label.png[Admission]
 
-=== Test Example with Matching Environment Variables with Secrets
+=== Test_TwoExample with Matching Environment Variables with Secrets
 
 [,yaml]
 ----
@@ -157,7 +157,7 @@ The Matching rule would be:
 
 image:ac_environment.png[Admission]
 
-=== Test Criteria Related to Scan Results
+=== Test_TwoCriteria Related to Scan Results
 
 The following criteria are related to the results in {product-name} Assets > Registry scan page:
 
@@ -172,13 +172,13 @@ If users are using the image from docker registry to create a cluster resource, 
 If users are using the built-in image such as alpine or ubuntu from the docker registry, there is a hidden organization name called library. When you look at the results for docker build-in image in {product-name} Assets > Registry scan page, the repository name will be library/alpine or library/ubuntu. Currently {product-name} assumes there is only one hidden library organization name in docker registry. If there is more  than one, {product-name} is unable to get the registry scan results successfully as well.
 The above limitation could also apply on other type of docker registry servers if any.
 
-=== Test Creating Custom Criteria Rules
+=== Test_TwoCreating Custom Criteria Rules
 
 Users can create a customized criterion to be used to allow or block deployments based on common objects found in the image yaml (scanned upon deployment). Select the object to be used, for example imagePullSecrets and the matching value, for example exists. It is also recommended to use additional criteria to further target the rule, such as namespace, PSP/PSA, CVE conditions etc.
 
 image:custom_admission.png[admission]
 
-==== Test Criteria Explanations
+==== Test_TwoCriteria Explanations
 
 Criteria with a disk icon require that the image be scanned (see registry scanning), and criteria with a file icon will scan the deployment yaml. If both icons are listed, then matching will be for either (OR). If a criterion requires an image scan, but the image is NOT scanned, that part of the rule will be ignored (ie rule is bypassed, or if deployment yaml is also listed, then only the deployment yaml will be used to match). To prevent non-scanned images from bypassing rules, see the Image Scanned criterion below. 
 
@@ -203,7 +203,7 @@ Criteria with a disk icon require that the image be scanned (see registry scanni
 * Mount volumes. Typically used to prevent certain volumes from being mounted. 
 * Namespace. Allow or restrict deployments for certain namespace(s). Used independently but often combined with other criteria to limit the rule matching to namespace. 
 * PSP Best Practice. Equivalent rules for PSP (note: PSP is completely removed from kubernetes 1.25+, however this {product-name} equivalent may still used in 1.25+). Includes Run as privileged, Run as root, Share host's PID namespaces, Share host's IPC namespaces, Share host's Network, Allow Privilege Escalation. 
-* Resource Limit Configuration (RLC). Requires resource limits to be configured for CPU Limit/Request, Memory Limit/Request, and can require operator to be > or \<= Test a configured resource value. 
+* Resource Limit Configuration (RLC). Requires resource limits to be configured for CPU Limit/Request, Memory Limit/Request, and can require operator to be > or \<= Test_Twoa configured resource value. 
 * Run as privileged. Typically used to limit or block deployments of privileged containers. 
 * Run as root. Typically used to limit or block deployments of containers run as root.. 
 * Service Account Bound High Risk Role. Can match on multiple criteria which could respresent a high risk service account role, including listing secrets, performing any operations on workloads, modification of RBAC resources, creation of workload resources, and allowing exec into a container. 
@@ -215,7 +215,7 @@ Criteria with a disk icon require that the image be scanned (see registry scanni
 * User groups. Allow or disallow defined https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-subjects[user groups bound by kubernetes] at run-time, visible in the userInfo field.  Note: The yaml (upload) auditing function will not be able to check this because it is bound at run-time. 
 * Violates PSA policy. Matches if the deployment violates either a Restricted or Baseline PSA https://kubernetes.io/docs/concepts/security/pod-security-standards/[Pod Security Standard] (equivalent to PSA definitions in kubernetes 1.25+) 
 
-=== Test Secrets detection
+=== Test_TwoSecrets detection
 
 Detection of secrets, for example in environment variables is matched used the following regex:
 
@@ -232,14 +232,14 @@ image::https://github.com/user-attachments/assets/848533ed-70c1-494b-b7d5-6e9b60
 
 A list of types of secrets detected can be found xref:compliance.adoc#_secrets_auditing[here] 
 
-== Test Admission Control Modes
+== Test_TwoAdmission Control Modes
 
 There are two modes {product-name} supports - Monitor and Protect.
 
 * Monitor: there is an alert message in the event log if a decision is denied. In this case, the cluster apiserver is allowed to create a resource successfully. Note: even if the rule action is Deny, in Monitor mode this will only alert.
 * Protect: this is an inline protection mode. Once a decision is denied, the cluster resource will not be able to be created successfully, and an event will be logged.
 
-== Test Admission Control Rules
+== Test_TwoAdmission Control Rules
 
 Rules can be Allow (whitelist) or Deny (blacklist) rules. Rules are evaluated in the order displayed, from top to bottom. Allow rules are evaluated first, and are useful to define exceptions (subsets) to Deny rules. If a resource deployment does not match any rules, the default action is to Allow the deployment.
 
@@ -260,15 +260,15 @@ For admission control rules, the matching order is:
 
 In each of the matching stages(1~7), the rule order doesn't matter. As long as the request matches one rule's criteria, the action (allow or deny) is taken and the request is allowed or denied.
 
-== Test Federated Scan Results in Admission Control Rules
+== Test_TwoFederated Scan Results in Admission Control Rules
 
 The primary (master) cluster can scan a registry/repo designated as a federated registry. The scan results from these registries will be synchronized to all managed (remote) clusters. This enables display of scan results in the managed cluster console as well as use of the results in admission control rules of the managed cluster. Registries only need to be scanned once instead of by each cluster, reducing CPU/memory and network bandwidth usage. See the xref:multicluster.adoc[multi-cluster] section for more details.
 
-== Test Configuring Sigstore/Cosign Verifiers for Requiring Image Signing
+== Test_TwoConfiguring Sigstore/Cosign Verifiers for Requiring Image Signing
 
 Please see xref:sigstore.adoc[this section] for configuring verifiers.
 
-== Test Troubleshooting
+== Test_TwoTroubleshooting
 
 If experiencing errors and you have access to the master node you can inspect the kube-apiserver log to search for admission webhook events. Examples:
 
@@ -300,12 +300,12 @@ W0404 23:27:15.270619 1 admission.go:236] Failed calling webhook, failing open n
 
 The above log indicates that the cluster kube-apiserver is unable to send the request to the {product-name} webhook successfully because the neuvector-svc-admission-webhook service is not found.
 
-=== Test Review Admission Control Configurations
+=== Test_TwoReview Admission Control Configurations
 
 First, check your Kubernetes or OpenShift version. Admission control is supported in Kubernetes 1.9+ and OpenShift 3.9+.
 For OpenShift, make sure you have edited the master-config.yaml to add the MutatingAdmissionWebhook configuration and restarted the master api-servers.
 
-==== Test Check the Clusterrole
+==== Test_TwoCheck the Clusterrole
 
 [,shell]
 ----
@@ -343,7 +343,7 @@ Make sure the verbs include:
 
 If the above verbs are not listed, the Test button will fail.
 
-==== Test Check the Clusterrolebinding
+==== Test_TwoCheck the Clusterrolebinding
 
 [,shell]
 ----
@@ -361,7 +361,7 @@ Make sure the ServiceAccount is set properly:
             "namespace": "neuvector"
 ----
 
-==== Test Check the Webhook Configuration
+==== Test_TwoCheck the Webhook Configuration
 
 [,shell]
 ----
@@ -455,7 +455,7 @@ metadata:
 
 If you see any content like "Error from server ...." or "... is forbidden", it means the NV controller service account doesn't have access right for ValidatingWebhookConfiguration resource. In this case it usually means the neuvector-binding-admission clusterrole/clusterrolebinding has some issue. Deleting and recreating neuvector-binding-admission clusterrole/clusterrolebinding usually the fastest fix.
 
-==== Test Test the Admission Control Connection Button
+==== Test_TwoTest the Admission Control Connection Button
 
 In the {product-name} Console in Policy -> Admission Control, go to More Operations ->  Advanced Setting and click the "Test" button. {product-name} will modify service neuvector-svc-admission-webhook and see if our webhook server can receive the change notifification or if it fails.
 

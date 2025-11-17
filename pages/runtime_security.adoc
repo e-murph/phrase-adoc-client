@@ -1,10 +1,10 @@
-= Test Assets Security Scan Result
+= Test_TwoAssets Security Scan Result
 :page-opendocs-origin: /15.ui_extension/02.runtime_security/02.runtime_security.md
 :page-opendocs-slug:  /ui_extension/runtime_security
 
 As Rancher Manager has its own **Nodes** and **Workloads** tab to manage and monitor the assets statuses, NeuVector injects components to display its runtime scan result.
 
-== Test Nodes
+== Test_TwoNodes
 
 In the **Nodes** tab table view, the **Vulnerabilities** column is injected to show each node's detected vulnerabilities amount by high / medium severity.
 
@@ -30,7 +30,7 @@ image:download_vul.png[CSV]
 
 image:cve_csv.png[CSV]
 
-== Test Workloads
+== Test_TwoWorkloads
 
 Temporarily, the **Vulnerabilities** column will not be injected in the **Workloads** table in the v5.4 release due to potential performance concern. The NeuVector team will work with the Rancher team to integrate it soon.
 

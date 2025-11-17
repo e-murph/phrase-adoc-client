@@ -1,10 +1,10 @@
-= Test GCR Scanning using Service Accounts
+= Test_TwoGCR Scanning using Service Accounts
 :revdate: 2024-09-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /06.scanning/02.registry/03.gcr-sa/03.gcr-sa.md
 :page-opendocs-slug:  /scanning/registry/gcr-sa
 
-== Test Google GCR - Authentication/Scanning with GCP Service Accounts
+== Test_TwoGoogle GCR - Authentication/Scanning with GCP Service Accounts
 
 It is a best practice to not depend on user attributed accounts for integrations.  GCP supports using a service account to access GCR.  Here are the steps to enable a service account for GCR and use it to trigger repository scans from {product-name}.
 
@@ -66,7 +66,7 @@ You should be set! See figure 8 below for a properly-configured registry using t
 
 image:gcr9.png[GCR]
 
-=== Test Obtain the Access Token Using the REST API
+=== Test_TwoObtain the Access Token Using the REST API
 
 The {product-name} REST API may be used to authenticate using the service account. The below example uses gcloud to obtain the access token.  The username is "`oauth2accesstoken`".
 
@@ -76,7 +76,7 @@ gcloud auth print-access-token
 ya29.a0AfH6SMAvyZ2zkD3MZD_K8Lqr7qkIsRkGNqhAGthJ_A7lp8OGRe7xh5KmuQY-VJfqu83C9e1gi7A_m1InNm8QIoTGf9WHXnOeAr1gT_O6b6K667NUz1_YDunjdW09jt0XvcBGQaxjJ3c4aHlxdehBFiE_9PMk13JDt_T6f0_6vzS7
 ----
 
-=== Test Use the Token with {product-name} Repository Scanning
+=== Test_TwoUse the Token with {product-name} Repository Scanning
 
 The below example script incorporates the access token to trigger GCR repository scan.
 
@@ -106,7 +106,7 @@ _TOKEN_=`cat token.json | jq -r '.token.token'`
 echo `date +%Y%m%d_%H%M%S` scanning an image ...
 curl -k -H "Content-Type: application/json" -H "X-Auth-Token: $_TOKEN_" -d '{"request": {"registry": "'$_registryURL_'", "username": "'$_registryUsername_'", "password": "'$_registryPassword_'", "repository": "'$_repository_'", "tag": "'$_tag_'"}}' "https://$_controllerIP_:$_controllerRESTAPIPort_/v1/scan/repository" > /dev/null 2>&1 > scan_repository.json
 
-while [ `wc -c < scan_repository.json` = Test "0" ]; do
+while [ `wc -c < scan_repository.json` = Test_Two"0" ]; do
  echo `date +%Y%m%d_%H%M%S` scanning is still in progress ...
     sleep 5
     curl -k -H "Content-Type: application/json" -H "X-Auth-Token: $_TOKEN_" -d '{"request": {"registry": "'$_registryURL_'", "username": "'$_registryUsername_'", "password": "'$_registryPassword_'", "repository": "'$_repository_'", "tag": "'$_tag_'"}}' "https://$_controllerIP_:$_controllerRESTAPIPort_/v1/scan/repository" > /dev/null 2>&1 > scan_repository.json

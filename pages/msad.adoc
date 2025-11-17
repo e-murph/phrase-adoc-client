@@ -1,10 +1,10 @@
-= Test Microsoft AD
+= Test_TwoMicrosoft AD
 :revdate: 2024-09-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /08.integration/03.msad/03.msad.md
 :page-opendocs-slug:  /integration/msad
 
-== Test Configuring Active Directory
+== Test_TwoConfiguring Active Directory
 
 This explains how {product-name} authenticates with Windows Active Directory.
 The configuration page for Windows Active Directory server is shown below.
@@ -43,6 +43,6 @@ image:ad7.png[ad_config]
 Group member attribute: This is a member attribute for Windows Active Directory by default and it is used for the role mapping purpose, as shown above.
 If all the requirements are met above, the Windows Active Directory user should be able to login to the {product-name} web console successfully.
 
-=== Test Mapping Groups to Roles and Namespaces
+=== Test_TwoMapping Groups to Roles and Namespaces
 
 Please see the xref:users.adoc#_mapping_groups_to_roles_and_namespaces[Users and Roles] section for how to map groups to preset and custom roles as well as namespaces in {product-name}.

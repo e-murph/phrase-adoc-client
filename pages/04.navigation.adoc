@@ -1,4 +1,4 @@
-= Test Navigating {product-name}
+= Test_TwoNavigating {product-name}
 :revdate: 2024-09-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /04.navigation/04.navigation.md

@@ -1,14 +1,14 @@
-= Test Deploy Using Operators
+= Test_TwoDeploy Using Operators
 :revdate: 2025-06-02
 :page-revdate: {revdate}
 :page-opendocs-origin: /02.deploying/01.production/02.operators/02.operators.md
 :page-opendocs-slug: /deploying/production/operators
 
-== Test Operators
+== Test_TwoOperators
 
 Operators take human operational knowledge and encode it into software that is more easily shared with consumers. Operators are pieces of software that ease the operational complexity of running another piece of software. More technically, Operators are a method of packaging, deploying, and managing a Kubernetes application.
 
-== Test {product-name} Operators
+== Test_Two{product-name} Operators
 
 The {product-name} Operator is based on the {product-name} Helm chart. The {product-name} RedHat OpenShift Operator runs in the OpenShift container platform to deploy and manage the {product-name} Security cluster components. The {product-name} Operator contains all necessary information to deploy {product-name} using Helm charts. You simply need to install the {product-name} operator from the OpenShift embedded Operator hub and create the {product-name} instance.
 
@@ -221,7 +221,7 @@ image:3_YAML.png[]
 image:4_tag_save.png[]
 ======
 
-=== Test Troubleshooting
+=== Test_TwoTroubleshooting
 
 * Check the Operator deployment values in the deployed yaml file
 * Verify that security context constraint (SCC) for {product-name} in step 2 was successfully added

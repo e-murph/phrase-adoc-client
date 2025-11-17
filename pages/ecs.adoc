@@ -1,14 +1,14 @@
-= Test Amazon ECS
+= Test_TwoAmazon ECS
 :revdate: 2024-09-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /02.deploying/09.ecs/09.ecs.md
 :page-opendocs-slug: /deploying/ecs
 
-== Test Important: Deployment on Amazon ECS is No Longer Supported
+== Test_TwoImportant: Deployment on Amazon ECS is No Longer Supported
 
 The reference section below is not being maintained. However, it may provide some assistance in understanding how to deploy the Allinone on ECS.
 
-== Test Deploy on AWS Using ECS
+== Test_TwoDeploy on AWS Using ECS
 
 This is an example of how to deploy {product-name} using ECS.
 
@@ -75,7 +75,7 @@ image:5taskplacement.png[EnforcerPlacement]
 Deploy this service with desired number of enforcer nodes in "`Number of tasks`". Very shortly all the enforcers will be up and running. From the {product-name} console you will be able to see all nodes being detected with enforcers.
 --
 
-== Test Sample ECS JSON Task Definitions
+== Test_TwoSample ECS JSON Task Definitions
 
 You can use the following samples as starting points for configuring the task definitions for the {product-name} containers.
 
@@ -335,7 +335,7 @@ Sample Enforcer json file:
 ----
 ====
 
-== Test Live Updating {product-name}
+== Test_TwoLive Updating {product-name}
 
 You can do a live update of the {product-name} containers in ECS without interrupting services. {product-name}'s services can be easily updated or upgraded without interrupting any running services. To do that in Amazon ECS:
 

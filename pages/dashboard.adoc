@@ -1,4 +1,4 @@
-= Test Monitor Overview of Security Status
+= Test_TwoMonitor Overview of Security Status
 :page-opendocs-origin: /15.ui_extension/01.dashboard/01.dashboard.md
 :page-opendocs-slug:  /ui_extension/dashboard
 
@@ -28,7 +28,7 @@ In the **Top Vulnerable Assets** tab, the bar charts show the top 5 pods / nodes
 
 image:dashboard_top_vul_assets.png[Dashboard]
 
-== Test Functions Not Included When Comparing with the NeuVector Standalone Page
+== Test_TwoFunctions Not Included When Comparing with the NeuVector Standalone Page
 
 * Score improvement dialog.
 * Application protocols detected and protected by Layer 7 network rules.

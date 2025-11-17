@@ -1,4 +1,4 @@
-= Test Replacing Internal Certificates
+= Test_TwoReplacing Internal Certificates
 :revdate: 2025-01-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /02.deploying/01.production/04.internal/04.internal.md
@@ -10,7 +10,7 @@ NeuVector versions 5.4.2 and later must have users generate/replace internal cer
 After March 2025, NeuVector versions prior to 5.4.2 must have users generate/replace internal certificates before using NeuVector.
 ====
 
-== Test Internal Communication and Certificates
+== Test_TwoInternal Communication and Certificates
 
 {product-name} includes default self-signed certificates for encryption for the Manager (console/UI access), Controller (REST API, internal), Enforcer (internal), and Scanner (internal) communications.
 
@@ -21,7 +21,7 @@ These certificates can be replaced by your own to further harden communication. 
 Replacing certificates is recommended to be performed only during initial deployment of {product-name}. Replacing on a running cluster (even with rolling upgrade) may result in an unstable state where {product-name} pods are unable to communicate with each other due to a mismatch in certificates, and DATA LOSS may occur.
 ====
 
-=== Test Replacing Certificates Used in Internal Communications of {product-name}
+=== Test_TwoReplacing Certificates Used in Internal Communications of {product-name}
 
 Replace the internal encryption files `ca.crt`, `tls.key`, `tls.crt` as follows:
 
@@ -30,22 +30,22 @@ Replace the internal encryption files `ca.crt`, `tls.key`, `tls.crt` as follows:
 [,shell]
 ----
 [req]
-distinguished_name = Test req_distinguished_name
-x509_extensions = Test v3_req
-prompt = Test no
+distinguished_name = Test_Tworeq_distinguished_name
+x509_extensions = Test_Twov3_req
+prompt = Test_Twono
 [req_distinguished_name]
-C = Test US
-ST = Test California
-L = Test San Jose
-O = Test {product-name} Inc.
-OU = Test Neuvector
-CN = Test Neuvector
+C = Test_TwoUS
+ST = Test_TwoCalifornia
+L = Test_TwoSan Jose
+O = Test_Two{product-name} Inc.
+OU = Test_TwoNeuvector
+CN = Test_TwoNeuvector
 [v3_req]
-keyUsage = Test digitalSignature, keyEncipherment, dataEncipherment
-extendedKeyUsage = Test serverAuth, clientAuth
-subjectAltName = Test @alt_names
+keyUsage = Test_TwodigitalSignature, keyEncipherment, dataEncipherment
+extendedKeyUsage = Test_TwoserverAuth, clientAuth
+subjectAltName = Test_Two@alt_names
 [alt_names]
-DNS.1 = Test Neuvector
+DNS.1 = Test_TwoNeuvector
 ----
 
 [IMPORTANT]
@@ -298,7 +298,7 @@ docker run -it --entrypoint=bash neuvector/scanner:3.654 -c "cat /etc/neuvector/
 
 ========
 
-=== Test Updating/Deploying with Helm
+=== Test_TwoUpdating/Deploying with Helm
 
 As of Helm chart `2.4.1` we can now manage the internal certificate install. The chart https://github.com/neuvector/neuvector-helm/blob/master/charts/core/values.yaml[values.yaml] should be reviewed for all the settings. The below example uses RKE2, standard Ingress and installer certificates.
 

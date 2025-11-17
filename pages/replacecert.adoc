@@ -1,10 +1,10 @@
-= Test Replacing Self-Signed Certificate
+= Test_TwoReplacing Self-Signed Certificate
 :revdate: 2024-09-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /03.configuration/01.console/01.replacecert/01.replacecert.md
 :page-opendocs-slug: /configuration/console/replacecert
 
-== Test Replacing the Self-Signed Certificate with PKCS Certificate for External Access
+== Test_TwoReplacing the Self-Signed Certificate with PKCS Certificate for External Access
 
 The built-in self-signed certificate used for external access from a browser to the Manager or for the REST API to the Controller can be replaced by a supported PKCS certificate. These should be replaced in both the Manager and Controller deployments. Note: To replace the included certificates for Internal communication between the Controller, Enforcer, and Scanner, please see xref:internal.adoc[this section].
 
@@ -12,7 +12,7 @@ The {product-name} web console supports 2 different self-signed certificate type
 
 The steps to generate the secret that will be consumed by {product-name}'s web console originating from the key and certificate using either of the PKCS methods will be illustrated below.  The important note here is, with the use of the wildcard for the DNS as being part of the alternate-subject-name parameter during the key and certificate creation, this enables the name of your choosing to be mapped to the Management console IP-Address without restricting to a particular CN.
 
-=== Test Generate and Use Self-signed Certificate PKCS8 or PCKS1
+=== Test_TwoGenerate and Use Self-signed Certificate PKCS8 or PCKS1
 
 . Create a key and certificate
 +
@@ -27,22 +27,22 @@ PKCS8::
 openssl req -x509 -nodes -days 730 -newkey rsa:2048 -keyout tls.key -out tls.pem -config ca.cfg -extensions 'v3_req'
 Sample ca.cfg
 [req]
-distinguished_name = Test req_distinguished_name
-x509_extensions = Test v3_req
-prompt = Test no
+distinguished_name = Test_Tworeq_distinguished_name
+x509_extensions = Test_Twov3_req
+prompt = Test_Twono
 [req_distinguished_name]
-C = Test US
-ST = Test California
-L = Test San Jose
-O = Test {product-name} Inc.
-OU = Test Neuvector
-CN = Test Neuvector
+C = Test_TwoUS
+ST = Test_TwoCalifornia
+L = Test_TwoSan Jose
+O = Test_Two{product-name} Inc.
+OU = Test_TwoNeuvector
+CN = Test_TwoNeuvector
 [v3_req]
-keyUsage = Test keyEncipherment, dataEncipherment
-extendedKeyUsage = Test serverAuth
-subjectAltName = Test @alt_names
+keyUsage = Test_TwokeyEncipherment, dataEncipherment
+extendedKeyUsage = Test_TwoserverAuth
+subjectAltName = Test_Two@alt_names
 [alt_names]
-DNS.1 = Test *
+DNS.1 = Test_Two*
 ----
 ====
 
@@ -55,22 +55,22 @@ openssl genrsa -out tls.key 2048
 openssl req -x509 -nodes -days 730 -config openssl.cnf  -new -key tls.key -out tls.pem
 Sample openssl.cnf
 [req]
-distinguished_name = Test req_distinguished_name
-x509_extensions = Test v3_req
-prompt = Test no
+distinguished_name = Test_Tworeq_distinguished_name
+x509_extensions = Test_Twov3_req
+prompt = Test_Twono
 [req_distinguished_name]
-C = Test US
-ST = Test California
-L = Test San Jose
-O = Test {product-name} Inc.
-OU = Test Neuvector
-CN = Test Neuvector(PKCS#1)
+C = Test_TwoUS
+ST = Test_TwoCalifornia
+L = Test_TwoSan Jose
+O = Test_Two{product-name} Inc.
+OU = Test_TwoNeuvector
+CN = Test_TwoNeuvector(PKCS#1)
 [v3_req]
-keyUsage = Test keyEncipherment, dataEncipherment
-extendedKeyUsage = Test serverAuth
-subjectAltName = Test @alt_names
+keyUsage = Test_TwokeyEncipherment, dataEncipherment
+extendedKeyUsage = Test_TwoserverAuth
+subjectAltName = Test_Two@alt_names
 [alt_names]
-DNS.1 = Test *
+DNS.1 = Test_Two*
 ----
 ====
 ======
@@ -136,7 +136,7 @@ controller:
 Then update with `+helm upgrade -i neuvector ...+`. For reference here are all the values https://github.com/neuvector/neuvector-helm/tree/master/charts/core.
 --
 
-=== Test Support chained certificates
+=== Test_TwoSupport chained certificates
 
 To support End-to-end TLS, some ingresses/Application Gateways will only support backend servers that can be trusted.  {product-name} added support for chained certificates in version 3.2.2.  Microsoft's Application Gateway is one example of an Application Gateway requiring a chained certificate when using a not well-known CA.
 

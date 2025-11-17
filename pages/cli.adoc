@@ -1,10 +1,10 @@
-= Test Command Line
+= Test_TwoCommand Line
 :revdate: 2024-09-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /12.troubleshooting/02.cli/02.cli.md
 :page-opendocs-slug:  /tronubleshooting/cli
 
-== Test Using the {product-name} Command Line
+== Test_TwoUsing the {product-name} Command Line
 
 The {product-name} solution supports a limited set of functions using the CLI. The CLI is supported through the Manager, which in turn uses a RestAPI to issue commands to the Controller. The Controller then manages the Enforcer(s) appropriately. A complete set of operations is supported through the REST API, which can be exposed directly from the Controller. You can access the {product-name} CLI by typing the cli command for the Manager or Allinone, for example:
 
@@ -22,7 +22,7 @@ Where '`allinone`' is the container name for the Controller. You may need to use
 
 Although the CLI is available through the Manager, we recommend using the xref:automation.adoc[REST API] directly into the controller for querying and automation.
 
-=== Test CLI Command Examples
+=== Test_TwoCLI Command Examples
 
 Here are some of the most common CLI commands:
 
@@ -84,9 +84,9 @@ MODES:
 
 More CLI commands are listed below.
 
-== Test Command Line Reference & Commands
+== Test_TwoCommand Line Reference & Commands
 
-=== Test Login/Logout
+=== Test_TwoLogin/Logout
 
 [,shell]
 ----
@@ -123,7 +123,7 @@ Options:
   -h, --help  Show this message and exit.
 ----
 
-=== Test User
+=== Test_TwoUser
 
 [,shell]
 ----
@@ -181,7 +181,7 @@ Options:
   -h, --help  Show this message and exit.
 ----
 
-=== Test Policy
+=== Test_TwoPolicy
 
 [,shell]
 ----
@@ -318,7 +318,7 @@ Commands:
 SEE System (below)
 ----
 
-=== Test Quarantine
+=== Test_TwoQuarantine
 
 [,shell]
 ----
@@ -334,7 +334,7 @@ Commands:
   quarantine  Set container quarantine state.
 ----
 
-=== Test System
+=== Test_TwoSystem
 
 [,shell]
 ----
@@ -398,7 +398,7 @@ Commands:
   syslog_server  Unset syslog server address.
 ----
 
-=== Test Vulnerability Scan
+=== Test_TwoVulnerability Scan
 
 [,shell]
 ----
@@ -513,7 +513,7 @@ Options:
   -h, --help  Show this message and exit.
 ----
 
-=== Test Show/Debug commands
+=== Test_TwoShow/Debug commands
 
 [,shell]
 ----
@@ -731,7 +731,7 @@ Options:
   -h, --help           Show this message and exit.
 ----
 
-=== Test Export/Import
+=== Test_TwoExport/Import
 
 [,shell]
 ----
@@ -757,7 +757,7 @@ Options:
   -h, --help  Show this message and exit.
 ----
 
-==== Test Packet Sniffer
+==== Test_TwoPacket Sniffer
 
 [NOTE]
 ====
