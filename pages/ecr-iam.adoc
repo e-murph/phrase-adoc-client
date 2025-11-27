@@ -1,22 +1,22 @@
-= Test_TwoECR Scanning using IAM Roles
+= ECR Scanning using IAM Roles
 :revdate: 2024-09-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /06.scanning/02.registry/02.ecr-iam/02.ecr-iam.md
 :page-opendocs-slug:  /scanning/registry/ecr-iam
 
-== Test_TwoAWS ECR - IAM Roles
+== AWS ECR - IAM Roles
 
 When the {product-name} containers are deployed in AWS, and an EC2 instance is assigned a role of "`EC2 Container Registry`" Read Access, the AWS ECR registry can be scanned without an Access Key and Secret Key.
 
 Here is how to create an AWS role and assign it to the node.
 
-=== Test_TwoSelect the Instance
+=== Select the Instance
 
 Note that the IAM role is either blank or does not include the ECR role
 
 image:ecr1.png[awsrole]
 
-=== Test_TwoAttach a Role
+=== Attach a Role
 
 Select Actions -> Instance Settings -> Attach/Replace IAM Role
 
@@ -26,22 +26,22 @@ If you have not previously created the ECR role, click Create New IAM Role. Ente
 
 image:ecr3.png[attachrole]
 
-=== Test_TwoSelect the AWS Service
+=== Select the AWS Service
 
 image:ecr4.png[select]
 
-=== Test_TwoList of Roles
+=== List of Roles
 
 image:ecr5.png[awsroles]
 
-=== Test_TwoAttach the ECR Read Permission to the Role
+=== Attach the ECR Read Permission to the Role
 
 image:ecr6.png[permissions]
 
-=== Test_TwoReview Your Settings
+=== Review Your Settings
 
 image:ecr7.png[review]
 
-=== Test_TwoCheck the Instance for IAM Role
+=== Check the Instance for IAM Role
 
 image:ecr9.png[instance]

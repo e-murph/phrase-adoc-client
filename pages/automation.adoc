@@ -1,10 +1,10 @@
-= Test_TwoREST API and Automation
+= REST API and Automation
 :revdate: 2025-05-08
 :page-revdate: {revdate}
 :page-opendocs-origin: /11.automation/02.automation/02.automation.md
 :page-opendocs-slug:  /automation/automation
 
-== Test_Two{product-name} Automation
+== {product-name} Automation
 
 There are many automation features in {product-name} to support the entire CI/CD workflow, including:
 
@@ -16,7 +16,7 @@ There are many automation features in {product-name} to support the entire CI/CD
 * Response rules to automate responses to security events
 * REST API for building automation of any {product-name} function
 
-=== Test_TwoREST API
+=== REST API
 
 The {product-name} solution can be managed using the REST API. Below are common examples of automation using the REST API. The REST API yaml doc is best viewed in the Swagger 2.0 viewer. The REST API documentation is below in a yaml file which is best viewed in a reader such as swagger.io.
 
@@ -29,7 +29,7 @@ If you are making REST API calls with username/password, please be sure make a D
 
 {product-name} also support Response Rules to automate common responses to security events or vulnerabilities detected. Please see the section Security Policy -> Response Rules for more details.
 
-=== Test_TwoExpose REST API in Kubernetes
+=== Expose REST API in Kubernetes
 
 To expose the REST API for access from outside of the Kubernetes cluster, enable port 10443.
 
@@ -60,7 +60,7 @@ spec:
 If using type LoadBalancer, set the _controllerIP_ in the examples below to the external IP or URL for the loadbalancer.
 ====
 
-=== Test_TwoAuthentication for REST API
+=== Authentication for REST API
 
 The REST API supports two types of authentication: username/password and token. Both can be configured in Settings -> Users, API Keys & Roles, and be associated with default or custom roles to limit access privileges. The examples below show username/password based authentication where a token is created first, then used in subsequent REST API calls. If using a token, it can be used directly in each REST API call. Note: username based connections have a limited number of concurrent sessions, so it is important to delete the username token as shown below when finished. Token based authentication does not have a limit, but expire according to the time limit selected when created.
 
@@ -72,7 +72,7 @@ image:5_2_api_created.png[token]
 
 image:5_2_api_key_header.png[token]
 
-=== Test_TwoTrigger Vulnerability Scanning from a script
+=== Trigger Vulnerability Scanning from a script
 
 {product-name} can be triggered automatically to scan an image for vulnerabilities. This can be done by configuring a registry/repository to be monitored, using the {product-name} Jenkins plug-in, or using the REST API. Please see the section on Scanning & Compliance for more detail.
 
@@ -107,7 +107,7 @@ _TOKEN_=`cat token.json | jq -r '.token.token'`
 echo `date +%Y%m%d_%H%M%S` scanning an image ...
 curl -k -H "Content-Type: application/json" -H "X-Auth-Token: $_TOKEN_" -d '{"request": {"registry": "'$_registryURL_'", "username": "'$_registryUsername_'", "password": "'$_registryPassword_'", "repository": "'$_repository_'", "tag": "'$_tag_'"}}' "https://$_controllerIP_:$_controllerRESTAPIPort_/v1/scan/repository" > /dev/null 2>&1 > scan_repository.json
 
-while [ `wc -c < scan_repository.json` = Test_Two"0" ]; do
+while [ `wc -c < scan_repository.json` = "0" ]; do
     echo `date +%Y%m%d_%H%M%S` scanning is still in progress ...
     sleep 5
     curl -k -H "Content-Type: application/json" -H "X-Auth-Token: $_TOKEN_" -d '{"request": {"registry": "'$_registryURL_'", "username": "'$_registryUsername_'", "password": "'$_registryPassword_'", "repository": "'$_repository_'", "tag": "'$_tag_'"}}' "https://$_controllerIP_:$_controllerRESTAPIPort_/v1/scan/repository" > /dev/null 2>&1 > scan_repository.json
@@ -212,7 +212,7 @@ Sample output:
 ----
 ====
 
-=== Test_TwoCreate Policy Rules Automatically
+=== Create Policy Rules Automatically
 
 To create a new rule in the {product-name} policy controller, the groups for the FROM and TO fields must exist first. The following sample creates a new Group based on the container label nv-service-type=data, and another Group for label nv-service-type=website. A rule is then created to allow traffic from the wordpress container to the mysql container using only the mysql protocol.
 
@@ -231,7 +231,7 @@ curl -k -X "DELETE" -H "Content-Type: application/json" -H "X-Auth-Token: $_TOKE
 
 If the Groups already exist in {product-name} then the new rule can be created, skipping the Group creation steps. This example also removes the authentication token at the end. Note that a Rule ID number can be specified and {product-name} executes rules in numerical order lowest to highest.
 
-=== Test_TwoExport/Import Configuration File
+=== Export/Import Configuration File
 
 Here are samples to backup the {product-name} configuration file automatically. You can select whether to export all configuration settings (policy, users, Settings etc), or only the policy.
 
@@ -268,7 +268,7 @@ To import the file:
 sudo pip install requests six
 ----
 
-=== Test_TwoSetting or Changing User Password
+=== Setting or Changing User Password
 
 Use the rest API calls for User management.
 
@@ -277,7 +277,7 @@ Use the rest API calls for User management.
 curl -s -k -H 'Content-Type: application/json' -H 'X-Auth-Token: c64125decb31e6d3125da45cba0f5025' https://127.0.0.1:10443/v1/user/admin -X PATCH -d '{"config":{"fullname":"admin","password":"admin","new_password":"NEWPASS"}}'
 ----
 
-=== Test_TwoStarting Packet Capture on a Container
+=== Starting Packet Capture on a Container
 
 When a container exhibits suspicious behavior, start a packet capture.
 
@@ -291,7 +291,7 @@ curl -k -H "Content-Type: application/json" -H "X-Auth-Token: $_TOKEN_" -d '{"sn
 
 Don't forget to stop the sniffer session after some time so it doesn't run forever. Number of files to rotate has a maximum value of 50.
 
-=== Test_TwoCheck and Accept the EULA (new deployments)
+=== Check and Accept the EULA (new deployments)
 
 Get the authentication TOKEN as above. Also replace the controller IP address with your as appropriate.
 
@@ -314,14 +314,14 @@ curl -s -k -H 'Content-Type: application/json' -H 'X-Auth-Token: $_TOKEN_' -d '{
 
 Then check the EULA again.
 
-=== Test_TwoConfigure Registry Scanning
+=== Configure Registry Scanning
 
 [,shell]
 ----
 curl -k -H "Content-Type: application/json" -H "X-Auth-Token: $_TOKEN_" -d '{"request": {"registry": "https://registry.connect.redhat.com", "username": "username", "password": "password", "tag": "latest", "repository": "neuvector/enforcer"}}' "https://controller:port/v1/scan/repository"
 ----
 
-=== Test_TwoEnable Packet Capture on All Pods in a Namespace
+=== Enable Packet Capture on All Pods in a Namespace
 
 .Click here for details
 [%collapsible]
@@ -451,7 +451,7 @@ echo $TOKEN
 }
 
 TOKEN=$(get_token)
-while [ "$TOKEN" = Test_Two"null" ]; do
+while [ "$TOKEN" = "null" ]; do
     echo
     echo "Authenticating failed, retry."
     TOKEN=$(get_token)
@@ -525,7 +525,7 @@ done
 ----
 ====
 
-=== Test_TwoEnable Disable Container Quarantine
+=== Enable Disable Container Quarantine
 
 The API call to quarantine is via PATCH to /v1/workload/:id with the following body. The workload id is the container/pod id.
 
@@ -540,7 +540,7 @@ The API call to quarantine is via PATCH to /v1/workload/:id with the following b
 }'
 ----
 
-=== Test_TwoEnable Debugging Mode for {product-name} Support
+=== Enable Debugging Mode for {product-name} Support
 
 Set access token with your IP, user, password:
 
@@ -591,7 +591,7 @@ echo `date +%Y%m%d_%H%M%S` log out
 curl -k -X 'DELETE' -H "Content-Type: application/json" -H "X-Auth-Token: $_TOKEN_" "https://$_controllerIP_:$_controllerRESTAPIPort_/v1/auth" > /dev/null 2>&1
 ----
 
-=== Test_TwoReport if a vulnerability is in the base image layers
+=== Report if a vulnerability is in the base image layers
 
 To identify CVE's in the base image when using REST API to scan images, the base image must be identified in the API call, as in the example below.
 
@@ -601,7 +601,7 @@ curl -k -H "Content-Type: application/json" -H "X-Auth-Token: $_TOKEN_" -d '{"re
 {noformat}
 ----
 
-==== Test_TwoLimitations
+==== Limitations
 
 If the image to be scanned is a remote image, with "registry" specified, the base image must also be a remote image, and the name must start with http or https.  If the image to be scanned is a local image, then the base image must also be a local image as well.
 
@@ -614,7 +614,7 @@ For example,
 {"request": {"repository": "neuvector/manager", "tag": "4.0.2", "scan_layers": true, "base_image": "10.1.127.12:5000/neuvector/manager:4.0.2”}}
 ----
 
-=== Test_TwoGet the CVE Database Version and Date
+=== Get the CVE Database Version and Date
 
 [,shell]
 ----
@@ -645,7 +645,7 @@ Output:
 }
 ----
 
-=== Test_TwoManage Federation for Master and Remote (Worker) Clusters
+=== Manage Federation for Master and Remote (Worker) Clusters
 
 Generally, listing Federation members can use a GET to the following endpoint (see samples for specific syntax):
 `+https://neuvector-svc-controller.neuvector:10443/v1/fed/member+`
@@ -699,7 +699,7 @@ cat ./fedMember.json | jq -c .
 echo `date +%Y%m%d_%H%M%S` [$_curCase_] checking fed member on worker cluster
 curl -k -H "Content-Type: application/json" -H "X-Auth-Token: $_TOKEN_W_" "https://$_workerClusterIP_:10443/v1/fed/member" > /dev/null 2>&1 > ./fedMember.json
 cat ./fedMember.json | jq -c .
-_CLUSTER_id_=`cat ./fedMember.json | jq -r --arg _CLUSTER_name_ "$_CLUSTER_name_" '.joint_clusters[] | select(.name == Test_Two$_CLUSTER_name_).id'`
+_CLUSTER_id_=`cat ./fedMember.json | jq -r --arg _CLUSTER_name_ "$_CLUSTER_name_" '.joint_clusters[] | select(.name == $_CLUSTER_name_).id'`
 ###################################################################################################################################
 
 ########## for ur information to leave or kick the cluster ############

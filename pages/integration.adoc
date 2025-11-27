@@ -1,10 +1,10 @@
-= Test_TwoEnterprise Integration
+= Enterprise Integration
 :revdate: 2025-01-10
 :page-revdate: {revdate}
 :page-opendocs-origin: /08.integration/01.integration/01.integration.md
 :page-opendocs-slug:  /integration/integration
 
-== Test_TwoIntegration
+== Integration
 
 {product-name} provides a number of ways to integrate, including a REST API, CLI, SYSLOG, RBACs, SAML, LDAP, and webhooks. See the Automation section for examples of scripting using the REST API.
 
@@ -12,7 +12,7 @@ Integrations with other ecosystem partners such as Sonatype (Nexus Lifecycle), I
 
 The following configurations can be found in Settings:
 
-=== Test_TwoOpenShift/Kubernetes RBACs
+=== OpenShift/Kubernetes RBACs
 
 Select this option if you are using Red Hat OpenShift Role Based Access Controls (RBACs) and would like {product-name} to automatically read and enforce those. If selected, OpenShift users can log into the {product-name} console using their OpenShift credentials, and will only have access to the resources (Projects, containers, nodes etc) according to their role in the OpenShift cluster. OpenShift integration uses the OAuth2 protocol.
 
@@ -28,20 +28,20 @@ Do not use the setting in OpenShift AllowAllPasswordIdentityProvider which allow
 The default Admin user of {product-name} and any additional users created in {product-name} will still be active with OpenShift RBACs enabled.
 ====
 
-==== Test_TwoKubernetes RBACs
+==== Kubernetes RBACs
 
 To manually configure RBACs for Kubernetes namespaces, open the Advanced Setting in the new user creation screen in Settings -> Users -> Add User. Here you can enter the namespaces(s) which this user should have access to in {product-name}.
 
 image:k8s-rbac.png[Kubernetes]
 
-=== Test_TwoSYSLOG
+=== SYSLOG
 
 Enter the SYSLOG server IP and select the level of notification. You can also use a DNS name and/or select TCP for configuration.
 
-=== Test_TwoWebhooks
+=== Webhooks
 
 Notifications can be sent via webhooks to an endpoint. Enter the endpoint URL for notifications to be sent. Webhook notifications for custom events can be configured in Policy -> Response Rules
 
-=== Test_TwoDirectory/SSO Integration
+=== Directory/SSO Integration
 
 See the next sections for LDAP, MSAD, SAML, OpenId and other integrations. See the xref:users.adoc#_users[Basics -> Users & Roles] section for predefined and custom roles in {product-name} which can be mapped in the integration.

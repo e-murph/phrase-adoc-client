@@ -1,10 +1,10 @@
-= Test_TwoSAML (Azure AD)
+= SAML (Azure AD)
 :revdate: 2024-09-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /08.integration/05.msazure/05.msazure.md
 :page-opendocs-slug:  /integration/msazure
 
-== Test_TwoIntegrate with Azure AD SAML authentication
+== Integrate with Azure AD SAML authentication
 
 . In the Azure management console, select the `"Enterprise applications" menu item in Azure Active Directory
 +
@@ -67,6 +67,6 @@ image:azure12.png[azure_config12]
 +
 image:azure13.png[azure_config13]
 
-=== Test_TwoMapping Groups to Roles and Namespaces
+=== Mapping Groups to Roles and Namespaces
 
 Please see the xref:users.adoc#_mapping_groups_to_roles_and_namespaces[Users and Roles] section for how to map groups to preset and custom roles as well as namespaces in {product-name}.

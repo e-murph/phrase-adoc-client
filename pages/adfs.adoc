@@ -1,14 +1,14 @@
-= Test_TwoSAML (ADFS)
+= SAML (ADFS)
 :revdate: 2025-05-08
 :page-revdate: {revdate}
 :page-opendocs-origin: /08.integration/06.adfs/06.adfs.md
 :page-opendocs-slug:  /integration/adfs
 
-== Test_TwoSetting Up ADFS and {product-name} Integration
+== Setting Up ADFS and {product-name} Integration
 
 This section describes the setup steps in ADFS first, then in the {product-name} console.
 
-=== Test_TwoADFS Setup
+=== ADFS Setup
 
 . From AD FS Management, right click on "`Relying Party Trusts`" and select "`Add Relying Party Trust...`".
 +
@@ -64,7 +64,7 @@ image:adfs11-12.png[adfsSetup]
 +
 image:adfs12-13.png[adfsSetup]
 
-=== Test_Two{product-name} Setup
+=== {product-name} Setup
 
 . Identify Provider Single Sign-On URL
 * View Endpoints from AD FS Management > Service and use "`SAML 2.0/WS-Federation`" endpoint URL.
@@ -92,11 +92,11 @@ image:adfs12-13.png[adfsSetup]
 +
 image:nv_adfs1.png[NVadfsSetup]
 
-=== Test_TwoMapping Groups to Roles and Namespaces
+=== Mapping Groups to Roles and Namespaces
 
 Please see the xref:users.adoc#_mapping_groups_to_roles_and_namespaces[Users and Roles] section for how to map groups to preset and custom roles as well as namespaces in {product-name}.
 
-== Test_TwoTroubleshooting
+== Troubleshooting
 
 . ADFS SamlResponseSignature needs to be either MessageOnly or MessageAndAssertion.  Use Get-AdfsRelyingPartyTrust command to verify or update it.
 +

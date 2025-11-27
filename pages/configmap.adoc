@@ -1,16 +1,16 @@
-= Test_TwoDeploy Using ConfigMap
+= Deploy Using ConfigMap
 :revdate: 2025-01-10
 :page-revdate: {revdate}
 :page-opendocs-origin: /02.deploying/01.production/01.configmap/01.configmap.md
 :page-opendocs-slug: /deploying/production/configmap
 
-== Test_TwoKubernetes ConfigMap
+== Kubernetes ConfigMap
 
 {product-name} supports automated configuration using the Kubernetes ConfigMap feature. This enables deployment of {product-name} containers with the appropriate configurations, integrations, and other settings in an automated way.
 
 The 'always_reload: true' setting can be added in any ConfigMap yaml to force reload of that yaml every time the controller starts (version 4.3.2+). Otherwise, the ConfigMap will only be loaded at initial startup or after complete cluster restart (see persistent storage section below).
 
-=== Test_TwoComplete Sample {product-name} ConfigMap (initcfg.yaml)
+=== Complete Sample {product-name} ConfigMap (initcfg.yaml)
 
 The latest ConfigMap can be found https://raw.githubusercontent.com/neuvector/manifests/main/kubernetes/5.4.0/initcfg.yaml[here].
 
@@ -26,7 +26,7 @@ If using configmap in a secret, see section below for formatting changes.
 apiVersion: v1
 data:
   fedinitcfg.yaml: |
-    # ============ Test_Twothis section is used for primary cluster ============ Test_Two>>>
+    # ============ this section is used for primary cluster ============ >>>
     # Optional. If specified, it overwrites the cluster name specified in the system configuration in the sysinitcfg.yaml file
     Cluster_Name: primary.cluster.local
     # Required and must be the same on primary cluster and remote clusters
@@ -40,8 +40,8 @@ data:
     Use_Proxy: ""
     # Optional. Whether federal repo scan data deployment is enabled (for primary cluster only)
     Deploy_Repo_Scan_Data: false
-    # <<< ============ Test_Twothis section is used for primary cluster ============
-    # ============ Test_Twothis section is used for remote cluster ============ Test_Two>>>
+    # <<< ============ this section is used for primary cluster ============
+    # ============ this section is used for remote cluster ============ >>>
     # Optional. If specified, it overwrites the cluster name specified in the system configuration in the sysinitcfg.yaml file
     Cluster_Name: remote.cluster.local
     # Required and must be the same on primary cluster and remote clusters
@@ -58,7 +58,7 @@ data:
       Port: 10443
     # Optional. Supported value: https
     Use_Proxy: ""
-    # <<< ============ Test_Twothis section is used for remote cluster ============
+    # <<< ============ this section is used for remote cluster ============
   passwordprofileinitcfg.yaml: |
     # Optional. true or false or empty string(false)
     always_reload: false
@@ -439,7 +439,7 @@ Then create the ConfigMap object:
 kubectl create -f initcfg.yaml
 ----
 
-=== Test_TwoFederated ConfigMap Examples (fedinitcfg.yaml)
+=== Federated ConfigMap Examples (fedinitcfg.yaml)
 
 NeuVector v5.4.0 supports Federation automation through the ConfigMap. Below are example `fedinitcfg.yaml` configurations that can be applied to your primary and managed clusters depending on your use case.
 
@@ -483,7 +483,7 @@ Managed_Rest_Info:
 Use_Proxy: ""
 ----
 
-== Test_TwoProtect Sensitive Data Using a Secret
+== Protect Sensitive Data Using a Secret
 
 If sensitive data is to be included in some sections of the configmap, a secret can be created for those sections with sensitive data.
 
@@ -535,7 +535,7 @@ After controller is deployed, all the configuration files from both configmap an
 
 Note that the secret is referred to in the standard Kubernetes and OpenShift Controller xref:kubernetes.adoc#_deploy_suse_security[deployment yaml files] under Volumes.
 
-== Test_TwoConfigMaps and Persistent Storage
+== ConfigMaps and Persistent Storage
 
 Both the ConfigMaps and the xref:production.adoc#_backups_and_persistent_data[persistent storage] backup are only read when a new {product-name} cluster is deployed, or the cluster fails and is restarted. They are not used during rolling upgrades.
 

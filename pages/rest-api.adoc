@@ -1,10 +1,10 @@
-= Test_TwoConnect to Manager, REST API server
+= Connect to Manager, REST API server
 :revdate: 2025-05-08
 :page-revdate: {revdate}
 :page-opendocs-origin: /03.configuration/01.console/01.console.md
 :page-opendocs-slug: /configuration/console
 
-== Test_TwoConnect to UI
+== Connect to UI
 
 Open a browser window, connect to the manager using HTTPS. After accepting the EULA, the user is able to access the UI.
 
@@ -22,7 +22,7 @@ Docker::
 ----
 https://<manager_host_ip>:8443
 ----
-==== Test_Two
+==== 
 
 Kubernetes without LoadBalancer or Ingress::
 +
@@ -40,7 +40,7 @@ LoadBalancer or Ingress configured::
 ----
 https://<FQDN|IP>/
 ---- 
-==== Test_Two
+==== 
 ======
 
 image:3_0_Dashboard.png[Navigation]
@@ -57,17 +57,17 @@ See below for cases where your corporate firewall blocks 8443.
 If your Chrome browser blocks the {product-name} self-signed certificate, see the next section on Chrome Certificate Upload. 
 ====
 
-== Test_TwoConnect to REST API Server 
+== Connect to REST API Server 
 
 All operations in {product-name} can be invoked through the REST API instead of the console. The REST API server is part of the Controller/Allinone container. For details on the REST API, please see the section on Workflow and xref:automation.adoc[Automation]. 
 
-== Test_TwoDefault username and password 
+== Default username and password 
 
 **admin:admin** 
 
 After successful login, the admin user should update the account with a more secure password. 
 
-== Test_TwoCreating Additional Users 
+== Creating Additional Users 
 
 New users can be added from the Settings -> Users & Roles menu. There are predefined global roles in {product-name}: 
 
@@ -80,11 +80,11 @@ Users can be restricted to one or more namespaces using the Advanced Settings.
 
 See the section xref:users.adoc[Users & Roles] for advanced user management and creation of custom roles. 
 
-== Test_TwoConnection Timeout Setting 
+== Connection Timeout Setting 
 
 You can set the number of seconds which the console will timeout in the upper right of the console in My Profile -> Session timeout. The default is 5 minutes and the maximum is 3600 seconds (1 hour). 
 
-== Test_TwoEnabling HTTP for Manager 
+== Enabling HTTP for Manager 
 
 To disable HTTPS and enable HTTP access, add this to the Manager or Allinone yaml section in the environment variables section. For example, in Kubernetes: 
 
@@ -104,7 +104,7 @@ tls:
 
 This is useful if putting the manager behind a load balancer. 
 
-== Test_TwoEnabling Access from Corporate Network Which Blocks 8443 
+== Enabling Access from Corporate Network Which Blocks 8443 
 
 If your corporate network does not allow access on port 8443 to the Manager console, you can create an ingress service to map it and allow access. 
 
@@ -168,7 +168,7 @@ You will need to change the annotation for the ingress address from ingress.mycl
 
 This example uses the URL cloud.neuvector.com. After the ingress service is created, you can find it's external IP. You then can configure the hosts file to point cloud.neuvector.com to that IP. After that, you should be able to browse to `+https://cloud.neuvector.com+` (the url you choose to use). 
 
-=== Test_TwoUsing SSL Passthrough Instead of Redirect 
+=== Using SSL Passthrough Instead of Redirect 
 
 To use TLS/SSL passthrough instead of the redirect example above (supported on some ingress controllers such as nginx), make sure the ingress controller is configured appropriated for passthrough, and the appropriate annotation is added to the ingress. For example, 
 
@@ -178,11 +178,11 @@ annotations:
   ingress.kubernetes.io/ssl-passthrough: "true" 
 ----
 
-== Test_TwoReplacing the {product-name} Self-signed Certificates 
+== Replacing the {product-name} Self-signed Certificates 
 
 Please see the next section xref:replacecert.adoc[Replacing the Self-Signed Certificates] for details. The certificate must be replaced in both the Manager and Controller/Allinone yamls. 
 
-== Test_TwoConfiguring AWS ALB with Certificate ARN 
+== Configuring AWS ALB with Certificate ARN 
 
 Here is a sample ingress configuration using the AWS load balancer with the certificate ARN (actual ARN obfuscated). 
 [,yaml]
