@@ -1,0 +1,7 @@
+= Dépannage des déploiements {product-name} 
+:revdate: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /12.troubleshooting/12.troubleshooting.md
+:page-opendocs-slug:  /troubleshooting
+
+Comment dépanner les déploiements {product-name} et collecter les journaux pour l'assistance.
