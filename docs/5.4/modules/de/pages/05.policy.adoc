@@ -1,0 +1,7 @@
+= Sicherheitspolitik und Regeln
+:revdate: 2024-09-25
+:page-revdate: {revdate}
+:page-opendocs-origin: /05.policy/05.policy.md
+:page-opendocs-slug:  /Politik
+
+Verwalten von Netzwerk-, Prozess- und Dateisystemregeln. Die Modi Entdecken, Überwachen und Schützen ermöglichen das Erlernen des normalen Anwendungsverhaltens und die Erkennung von Verstößen.
