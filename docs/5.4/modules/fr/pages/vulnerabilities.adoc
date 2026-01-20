@@ -1,0 +1,83 @@
+= Gestion de la vulnérabilité
+:revdate: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /06.scanning/01.scanning/01.vulnerabilities/01.vulnerabilities.md
+:page-opendocs-slug:  /scanning/scanning/vulnérabilités
+
+== Gérer les vulnérabilités avec {product-name}
+
+{product-name} permet d'automatiser l'analyse et la gestion des vulnérabilités tout au long du processus. Les meilleures pratiques pour gérer les vulnérabilités sur {product-name} sont les suivantes :
+
+* Analyser pendant la xref:build-image-scanning.adoc[phase de construction], en faisant échouer la construction s'il y a des vulnérabilités critiques "dont le correctif est disponible". Cela oblige les développeurs à corriger les vulnérabilités corrigibles avant de les stocker dans les registres.
+* Analyser en permanence les registres de stockage et de production afin de détecter les nouvelles vulnérabilités. Les vulnérabilités pour lesquelles des correctifs sont disponibles peuvent être corrigées immédiatement ou faire l'objet d'un délai de grâce permettant d'y remédier.
+* Configurez des règles de xref:admission.adoc[contrôle d'admission] pour bloquer les déploiements en production sur la base de critères tels que critique/élevé, correctif disponible et date de signalement.
+* Analyser en permanence les nœuds/hôtes de production, les conteneurs et la plateforme d'orchestration pour détecter les vulnérabilités nouvellement découvertes. Mettre en place des réponses basées sur la criticité/gravité qui peuvent être des alertes webhook (qui contactent la sécurité et le développeur), mettre en quarantaine le conteneur, ou démarrer une période de grâce pour la remédiation.
+* S'assurer que les conteneurs en cours d'exécution sont en mode Monitor ou Protect avec des règles de liste blanche appropriées pour "corriger virtuellement" les vulnérabilités afin d'empêcher toute exploitation en production.
+* Scanner les images sans distro et basées sur PhotonOS.
+
+Le tableau de bord du site {product-name} présente un résumé du score de risque qui inclut les vulnérabilités, ce qui peut être utilisé pour réduire le risque lié aux vulnérabilités. Pour plus de détails, voir xref:improve-score.adoc[comment améliorer le score de risque].
+
+L'autre outil principal permettant d'examiner, de filtrer et d'établir des rapports sur les vulnérabilités se trouve dans le menu "Risques de sécurité".
+
+=== Menu Risques de sécurité - Vulnérabilités
+
+Ce menu combine les résultats des analyses de vulnérabilité des registres (images), des nœuds et des conteneurs, ainsi que les contrôles de conformité figurant dans le menu Actifs, afin de permettre une gestion des vulnérabilités et l'établissement de rapports de bout en bout.
+
+Le menu Vulnérabilités fournit un outil d'exploration puissant pour :
+
+* Facilitez le filtrage pour la visualisation ou le téléchargement des rapports, en saisissant une chaîne de recherche ou en utilisant le filtre avancé situé à côté de la boîte. Le filtre avancé permet aux utilisateurs de filtrer les vulnérabilités en fonction du correctif disponible (ou non disponible), de l'urgence, des charges de travail, des services, des conteneurs, des nœuds ou des noms d'espaces de noms.
+* Comprendre l'impact des vulnérabilités et des contrôles de conformité en cliquant sur la ligne d'impact et en examinant la remédiation et les images, nœuds ou conteneurs impactés.
+* Consultez l'état de protection (risque d'exploitation) de toute vulnérabilité ou problème de conformité pour voir si des protections de sécurité (règles) sont activées sur {product-name} Run-Time pour les nœuds ou les conteneurs concernés.
+* Accepter" une vulnérabilité/CVE après qu'elle a été examinée afin de la masquer et de la supprimer des rapports.
+
+image:vulnerabilities_4_4.png[Risques de sécurité]
+
+Utilisez le champ de filtre pour saisir une chaîne de caractères ou utilisez le filtre avancé situé à côté pour sélectionner des critères plus spécifiques, comme illustré ci-dessous. Les rapports PDF et CSV téléchargés n'afficheront que les résultats filtrés.
+
+image:advanced_filter_4.png[AdvancedFilter]
+
+En sélectionnant l'un des CVE listés, vous obtiendrez des détails supplémentaires sur le CVE, la remédiation et les images, nœuds ou conteneurs impactés. L'icône État de protection (cercle) affiche différentes couleurs pour indiquer un pourcentage approximatif des éléments touchés qui ne sont pas protégés par {product-name} pendant l'exécution, qui sont protégés par les règles {product-name} (en mode Surveillance ou Protection) ou qui ne sont pas affectés pendant l'exécution (par exemple, une image analysée avec cette vulnérabilité n'a pas de conteneurs en cours d'exécution). Le schéma de couleurs de la colonne État de protection est le suivant :
+
+* Noir = non affecté
+* Vert = protégé par {product-name} avec le mode Monitor ou Protect
+* Rouge = non protégé par {product-name}, toujours en mode découverte
+
+La fenêtre d'analyse d'impact (montrant les images, les nœuds et les conteneurs affectés) est colorée :
+
+* Noir = non affecté. Aucun conteneur n'utilise cette image en production
+* Violet = fonctionne en mode moniteur en production
+* Vert foncé = fonctionnement en mode protection en production
+* Bleu clair = fonctionnement en mode découverte en production (non protégé)
+
+Les couleurs Impact sont censées correspondre aux couleurs de protection en cours d'exécution pour les modes Discover, Monitor et Protect à d'autres endroits de la console {product-name}.
+
+=== Accepter les vulnérabilités
+
+Vous pouvez "accepter" une vulnérabilité (CVE) pour l'exclure des rapports, des vues, de l'évaluation des risques, etc. Il est possible de sélectionner une vulnérabilité et de cliquer sur le bouton "Accepter" à partir de plusieurs écrans tels que "Security Risks" ( -> ), "Assets" ( -> ), "Containers" (conteneurs), etc. Une fois accepté, il est ajouté à la liste des risques de sécurité -> Vulnerability Profile. Il peut être consulté, exporté et modifié ici. Notez que cette fonction d'acceptation peut être limitée aux images et/ou aux espaces de noms répertoriés. De nouvelles entrées peuvent également être ajoutées manuellement à cette liste à partir de cet écran.
+
+Pour accepter une vulnérabilité globalement, allez sur la page Risques de sécurité -> Vulnérabilités et sélectionnez la vulnérabilité, puis Accepter. Cela créera un profil de vulnérabilité pour ce CVE au niveau mondial.
+
+image:accept_global.png[global]
+
+Pour accepter une vulnérabilité trouvée dans une analyse d'image, ouvrez les résultats de l'analyse d'image dans Assets -> Registries, déroulez le menu déroulant Afficher et sélectionnez Accepter. Notez que vous pouvez également choisir d'afficher ou de masquer les vulnérabilités acceptées pour cette image. NOTE : Cette action créera une entrée du profil de vulnérabilité pour ce CVE dans cette IMAGE uniquement.
+
+image:accept_image_cve.png[image]
+
+Pour accepter une vulnérabilité trouvée dans un conteneur dans Assets -> Containers, sélectionnez la vulnérabilité et déroulez le menu déroulant View et sélectionnez Accept. Vous pouvez également choisir d'afficher ou de masquer les vulnérabilités acceptées pour ce conteneur. NOTE : Cette action créera un profil de vulnérabilité pour ce CVE dans ce NAMESPACE uniquement.
+
+image:accept_containers.png[conteneur]
+
+Cette action peut également être effectuée dans Assets -> Nodes, ce qui créera un profil de vulnérabilité pour le CVE pour tous les conteneurs, images et espaces de noms.
+
+[IMPORTANT]
+====
+Les vulnérabilités acceptées globalement sont exclues de l'affichage dans Risques de sécurité -> Vulnérabilités et dans les rapports exportés de cette page. Les vulnérabilités acceptées qui sont limitées à des images ou à des espaces de noms spécifiques continueront d'apparaître dans la vue, mais seront exclues des rapports dans lesquels le filtre avancé limite la vue à ces images ou à ces espaces de noms.
+====
+
+=== Gestion des profils de vulnérabilité
+
+Chaque vulnérabilité/CVE acceptée crée une entrée dans la liste des risques de sécurité -> Vulnerability Profile. Ces entrées peuvent être modifiées pour ajouter ou supprimer des attributs tels que le(s) nom(s) de l'image et le(s) espace(s) de noms.
+
+image:vuln_profile.png[profil]
+
+Les nouvelles vulnérabilités acceptées peuvent également être ajoutées ici en saisissant le nom du CVE à accepter.
