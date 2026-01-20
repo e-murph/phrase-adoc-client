@@ -1,0 +1,7 @@
+= Analyse de la vulnérabilité, tests de conformité et contrôles d'admission
+:revdate: 2024-09-25
+:page-revdate: {revdate}
+:page-opendocs-origin: /06.scanning/06.scanning.md
+:page-opendocs-slug:  /scanning
+
+Analyse des images et des conteneurs sur l'ensemble du cycle de vie, repères CIS pour la sécurité et la conformité
