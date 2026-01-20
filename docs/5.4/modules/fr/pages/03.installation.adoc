@@ -1,0 +1,8 @@
+= Installation / Déploiement
+:revdate: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /01.basics/03.installation/03.installation.md
+:page-opendocs-slug:  /basics/installation
+:taxonomy: {"category"=>"docs"}
+
+Déployer les conteneurs {product-name} à l'aide de Kubernetes, OpenShift, Rancher, AWS EKS, Azure AKS, Google GKE, IBM IKS, docker run ou docker-compose.
