@@ -1,5 +1,5 @@
 = DLP & WAF Sensors
-:revdate: 2025-05-05
+:revdate1: 2025-05-05
 :page-revdate: {revdate}
 :page-opendocs-origin: /05.policy/09.dlp/09.dlp.md
 :page-opendocs-slug:  /policy/dlp

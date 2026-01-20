@@ -1,5 +1,5 @@
 = Removing or Resetting {product-name}
-:revdate: 2024-09-27
+:revdate1: 2024-09-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /02.deploying/10.remove/10.remove.md
 :page-opendocs-slug: /deploying/remove

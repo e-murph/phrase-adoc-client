@@ -1,5 +1,5 @@
 = Security Advisories and CVEs
-:revdate: 2025-08-26
+:revdate1: 2025-08-26
 :page-revdate: {revdate}
 
 NeuVector is committed to informing the community of security issues. Below is a CVE reference list of published security advisories and CVEs (Common Vulnerabilities and Exposures) for issues we have resolved.

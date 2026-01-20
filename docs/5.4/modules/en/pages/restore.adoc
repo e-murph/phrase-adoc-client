@@ -1,5 +1,5 @@
 = Restoring {product-name} Configuration
-:revdate: 2024-09-27
+:revdate1: 2024-09-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /02.deploying/11.restore/11.restore.md
 :page-opendocs-slug: /deploying/restore

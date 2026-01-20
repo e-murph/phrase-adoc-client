@@ -1,5 +1,5 @@
 = General Guidelines
-:revdate: 2024-09-27
+:revdate1: 2024-09-27
 :page-revdate: {revdate}
 :page-opendocs-origin: /13.special/01.general/01.general.md
 :page-opendocs-slug:  /special/general
