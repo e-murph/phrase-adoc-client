@@ -1,0 +1,7 @@
+= Bereitstellung von {product-name} Containern, Diensten und erforderlichen Konfigurationen
+:revdate: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /02.deploying/02.deploying.md
+:page-opendocs-slug:  /Entwicklung
+
+Themen für die Planung und Bereitstellung zum Testen und für die Produktion auf verschiedenen Plattformen mit Kubernetes, Rancher, OpenShift und Docker compose.
