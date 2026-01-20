@@ -1,0 +1,7 @@
+= Exemples de déploiements spéciaux à l'aide du conteneur Allinone
+:revdate: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /13.special/13.special.md
+:page-opendocs-slug:  /spécial
+
+Comment déployer {product-name} en utilisant Kubernetes, OpenShift, Docker EE/UCP, Rancher, les services Kubernetes du cloud public, etc....
