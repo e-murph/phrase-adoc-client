@@ -1,0 +1,33 @@
+= Signatures de menaces sur les réseaux
+:revdate: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /05.policy/10.threats/10.threats.md
+:page-opendocs-slug:  /politique/menaces
+
+== Détection des menaces sur les réseaux
+
+{product-name} L'inspection approfondie des paquets peut être utilisée pour inspecter les paquets et les données utiles du réseau afin de détecter des attaques telles que celles figurant dans le Top 10 de l'OWASP et celles couramment utilisées dans les pare-feux pour applications web (WAF).
+
+=== Signatures OWASP
+
+Les capteurs DLP peuvent être créés pour détecter les attaques OWASP à l'aide des exemples de modèles suivants. Comme toujours, il peut être nécessaire de les adapter à votre environnement et à vos applications.
+
+[,shell]
+----
+img src=javascript
+/servlet/.*/org.apache.
+/modules.php?.*name=Wiki.*<script
+/error/500error.jsp.*et=.*<script
+/mailman/.*?.*info=.*<script
+\x0aReferer\x3a res\x3a/C\x3a
+/cgi-bin/cgictl?action=setTaskSettings.*settings={\x22.*taskId=
+/cgi-bin/cgictl.*scriptName=.*[?&]scriptName=[^&]*?([\x22\x27\x3c\x3e\x28\x29]|script|onload|src)
+----
+
+Voici d'autres exemples simples :
+
+image:owasp_top10_dlp.png[owasp]
+
+=== Détection intégrée des menaces
+
+{product-name} intègre également la détection d'autres menaces réseau telles que les attaques par injection SQL, les attaques DDoS (par exemple Ping Death) et les attaques par tunneling. Pour les attaques par injection SQL, {product-name} inspecte la connexion réseau (protocole SQL) entre le front-end et le pod de la base de données SQL, réduisant ainsi les faux positifs et augmentant la précision.
