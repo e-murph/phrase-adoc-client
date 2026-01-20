@@ -119,39 +119,39 @@ Sie können die Anmeldezeiten neu laden, indem Sie die Konfiguration in der Benu
 * Klicken Sie auf die Schaltfläche, um die SAML-Einstellung zu aktivieren und zu deaktivieren
 ** *Achten Sie darauf, dass Sie die Konfigurationseinstellungen beibehalten!*
 
- 
+Sobald die Einstellung wieder aktiviert ist, können Sie versuchen, sich mit einem ADFS-Benutzer anzumelden. Wenn es funktioniert, bestätigt dies, dass das Problem auf einen Zeitsynchronisationsfehler zwischen Kubernetes-Knoten und dem ADFS-Server zurückzuführen ist.
 ====
 
-. 
+. SAML-Zeichen müssen in {product-name} UI zwischen Groß- und Kleinschreibung unterschieden werden.
 +
-
+Bei den Attributnamen wird zwischen Groß- und Kleinschreibung unterschieden. Stellen Sie sicher, dass jeder hier konfigurierte SAML-Attributname genau mit der Anwendungskonfiguration übereinstimmt. SAML muss zur Authentifizierung auf die richtige URL verweisen.
 +
-
+Bei allen Feldern in `{product-name} UI -> Settings -> SAML Settings` wird zwischen Groß- und Kleinschreibung unterschieden.
 +
- 
+Die Protokolle des Controllers {product-name} enthalten relevante Informationen über die Authentifizierung mit dem ADFS-Server und Fehler, die bei der Ermittlung der Grundursache helfen. Wir empfehlen, den Zustand der fehlgeschlagenen Anmeldung wiederherzustellen und die Protokolle zu überprüfen.
 
-. 
+. Stellen Sie sicher, dass Sie die richtigen Gruppen, Zertifikate und Protokolle eingeben.
 +
-
+Die SAML-Einstellungen müssen mit der folgenden Konfiguration übereinstimmen:
 +
 |===
-|  | 
+| Einstellung | Wert
 
-| 
-| 
+| Identifizieren Sie Provider Single Sign-On URL
+| Erfordert HTTPS-Protokoll
 
-| 
-| 
+| Identitätsanbieter Emittent
+| Erfordert HTTP-Protokoll
 
-| 
-| 
+| ADFS SamlResponseSignatur
+| Muss entweder MessageOnly oder MessageAndAssertion sein
 |===
 
 [CAUTION]
 ====
-
+Diese Einstellungen müssen auf Ihrem ADFS-Server und in der Benutzeroberfläche {product-name} validiert werden.
 ====
 
- 
+Das ausgewählte Zertifikat muss gültig und korrekt generiert sein, einschließlich seiner `CA Root` und `Intermediate Certificates`. Sie können sie mit Ihrer vertrauenswürdigen Zertifizierungsstelle, mit Windows oder einem Automatisierungstool wie https://letsencrypt.org/[] LetsEncrypt erstellen.
 
-
+Wenn einer dieser Parameter nicht korrekt ist, erhalten Sie eine `Authentication Failed` Fehlermeldung, wenn Sie versuchen, sich bei {product-name} mit einem ADFS-Benutzer unter Verwendung der SAML-Authentifizierung anzumelden.
