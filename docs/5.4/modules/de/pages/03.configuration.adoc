@@ -1,8 +1,0 @@
-= Konfigurieren von {product-name} und Zugriff auf die Konsole
-:revdate: 2024-09-27
-:page-revdate: {revdate}
-:page-opendocs-origin: /03.configuration/03.configuration.md
-:page-opendocs-slug: /Konfiguration
-
-
-Wie man die ersten Konfigurationen vornimmt und auf die Konsole zugreift.
