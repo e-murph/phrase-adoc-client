@@ -1,0 +1,7 @@
+= Schwachstellen-Scanning, Compliance-Tests und Zugangskontrollen
+:revdate: 2024-09-25
+:page-revdate: {revdate}
+:page-opendocs-origin: /06.scanning/06.scanning.md
+:page-opendocs-slug:  /Scannen
+
+Full Lifecycle Image- und Container-Scanning, CIS-Benchmarks f√ºr Sicherheit und Compliance
