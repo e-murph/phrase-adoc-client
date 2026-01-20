@@ -1,0 +1,8 @@
+= Instalación / Despliegue
+:revdate: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /01.basics/03.installation/03.installation.md
+:page-opendocs-slug:  /básicos/instalación
+:taxonomy: {"category"=>"docs"}
+
+Implemente los contenedores de {product-name} con Kubernetes, OpenShift, Rancher, AWS EKS, Azure AKS, Google GKE, IBM IKS, docker run o docker-compose.
