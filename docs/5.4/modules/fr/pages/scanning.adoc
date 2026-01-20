@@ -1,0 +1,129 @@
+= Numérisation et conformité
+:revdate: 2025-01-16
+:page-revdate: {revdate}
+:page-opendocs-origin: /06.scanning/01.scanning/01.scanning.md
+:page-opendocs-slug:  /scanning/scanning
+
+{product-name} permet une analyse du cycle de vie complet et une mise en conformité grâce à l'analyse des vulnérabilités et à l'exécution des critères de référence du CIS en matière de sécurité, ainsi qu'à des contrôles de conformité personnalisés. Le menu "Risques de sécurité" permet de personnaliser les enquêtes, le triage et les rapports relatifs à la gestion des vulnérabilités et de la conformité. Recherchez facilement les vulnérabilités des images et découvrez quels nœuds ou conteneurs contiennent ces vulnérabilités. Le filtrage avancé facilite l'examen des résultats des analyses et des contrôles de conformité et fournit des rapports personnalisés. Il fournit également des rapports et des modèles de conformité standard et personnalisables pour PCI, GDPR et d'autres réglementations.
+
+== Vue d'ensemble de {product-name} Scanning
+
+L'analyse est effectuée à toutes les phases de la chaîne de production, de la construction au registre et à l'exécution, sur différents actifs, comme indiqué ci-dessous.
+
+|===
+| *Type de balayage* | Image | Node | Conteneur | Orchestrateur
+
+| *Vulnérabilités*
+| Oui
+| Oui
+| Oui
+| Oui
+
+| *Critères de référence CIS*
+| Oui
+| Oui
+| Oui
+| Oui
+
+| *Conformité sur mesure*
+| Non
+| Oui
+| Oui
+| Non
+
+| *Secrets*
+| Oui
+| Oui
+| Oui
+| Non
+
+| *Modules*
+| Oui
+| N/A
+| N/A
+| N/A
+|===
+
+Les images sont numérisées soit dans le registre, soit par l'intermédiaire de plug-ins de phase de construction tels que Jenkins, CircleCI, Gitlab, etc.
+
+Les critères de référence de l'ECI pris en charge par {product-name} sont les suivants :
+
+* Kubernetes
+* Docker
+* Red Hat OpenShift propose des critères de référence "Inspired by CIS" (Inspiré par le CIS)
+* Google GKE
+
+L'implémentation open source de ces benchmarks est disponible sur la https://github.com/neuvector[page Github]
+
+[NOTE]
+====
+Les secrets peuvent également être détectés sur les nœuds et dans les conteneurs à l'aide de xref:customcompliance.adoc[scripts personnalisés].
+====
+
+
+=== Déploiement de ressources Kubernetes Analyse de fichiers
+
+{product-name} est capable d'analyser les fichiers yaml de déploiement pour évaluer la configuration en fonction des règles de contrôle d'admission. Ceci est utile pour analyser les fichiers yaml de déploiement au début du pipeline afin de déterminer si le déploiement violerait des règles avant de tenter le déploiement. Pour plus de détails, voir l'xref:assessment.adoc[évaluation de la configuration] dans la section Contrôles d'admission.
+
+== Gestion des vulnérabilités et de la conformité
+
+{product-name} offre plusieurs moyens d'examiner les résultats des analyses de vulnérabilité et de conformité et de générer des rapports. Il s'agit notamment de
+
+* *Tableau de bord.* Examinez les vulnérabilités résumées et voyez comment elles influencent le xref:improve-score.adoc[score] global xref:improve-score.adoc[de risque de sécurité.]
+* *Menu Risques de sécurité.* Visualisez l'impact des vulnérabilités et des problèmes de conformité et générez des rapports avec un filtrage avancé.
+* *Menu Actifs.* Voir les résultats en matière de vulnérabilité et de conformité pour chaque actif tel que les registres, les nœuds et les conteneurs.
+* *Notifications -> Rapports sur les risques.* Visualiser les événements de numérisation pour chaque bien.
+* *Règles de réponse.* Créer des réponses telles que des notifications de crochets web ou des quarantaines basées sur les résultats de l'analyse.
+* *API REST.* Déclencher des analyses et en extraire les résultats de manière programmatique afin d'automatiser le processus.
+* *Alertes SYSLOG/Webhook.* Envoyer les résultats de l'analyse à un SIEM ou à d'autres plateformes d'entreprise.
+
+=== Risques pour la sécurité Menu
+
+Ces menus combinent les résultats des analyses de vulnérabilité des registres (images), des nœuds et des conteneurs, ainsi que les contrôles de conformité effectués dans le menu Assets, afin de permettre une gestion des vulnérabilités et l'établissement de rapports de bout en bout. Le menu du profil de conformité permet de personnaliser les contrôles de conformité PCI, GDPR et autres pour générer des rapports de conformité.
+
+image:vulnerabilities_4_4.png[Risques de sécurité]
+
+Voir la section suivante sur la xref:vulnerabilities.adoc[gestion des vulnérabilités] pour savoir comment gérer les vulnérabilités dans ce menu, et la section xref:compliance.adoc[Conformité et repères CIS] pour les rapports sur les repères CIS et la conformité de l'industrie comme PCI, GDPR, HIPAA, NIST, PCIv4, et DISA STIG.
+
+=== Menu Actifs
+
+Le menu Actifs présente les vulnérabilités et les résultats des contrôles de conformité organisés par actif.
+
+* Plateformes. La plateforme d'orchestration telle que Kubernetes, et les analyses de vulnérabilité de la plateforme.
+* Nœuds. Nœuds/hôtes protégés par {product-name} Enforcers, et résultats des contrôles de conformité tels que les tests de référence CIS et les contrôles personnalisés, ainsi que les analyses de vulnérabilité des hôtes.
+* Conteneurs. Tous les conteneurs du cluster, y compris les conteneurs système, et les résultats des contrôles de conformité tels que les benchmarks CIS et les contrôles personnalisés, ainsi que les analyses de vulnérabilité en cours d'exécution des conteneurs. Des statistiques sur l'activité et les performances du processus sont également disponibles ici.
+* Registres. Registres/dépôts analysés par {product-name}. Les résultats de l'analyse des images en couches se trouvent ici, et les résultats de l'analyse peuvent être utilisés dans les règles de contrôle d'admission (voir Politique -> Contrôles d'admission).
+
+[NOTE]
+====
+Les xref:customcompliance.adoc[contrôles de conformité personnalisés] mentionnés ci-dessus sont définis dans le menu xref:groups.adoc[Policy -> Groups.] 
+====
+
+=== Analyse automatisée en cours d'exécution
+
+{product-name} peut analyser les conteneurs en cours d'exécution, les nœuds hôtes et la plateforme d'orchestration à la recherche de vulnérabilités. Dans le menu Assets pour les nœuds ou les conteneurs, activez Auto-Scan en cliquant sur l'onglet Vulnerabilities pour un nœud ou un conteneur, puis sur Auto-Scan (apparaît en haut à droite) pour analyser tous les conteneurs, nœuds et plateformes en cours d'exécution, y compris ceux qui viennent d'être lancés une fois qu'ils ont commencé à fonctionner. Vous pouvez également sélectionner un conteneur ou un nœud et l'analyser manuellement.
+
+Vous pouvez cliquer sur chaque nom de vulnérabilité/CVE découverte pour en obtenir une description, et cliquer sur la flèche d'inspection dans la fenêtre contextuelle pour voir la description détaillée de la vulnérabilité.
+
+image:Vuln1.png[Vulnérabilités]
+
+L'analyse automatique sera également déclenchée dès qu'une mise à jour de la base de données CVE de {product-name} sera effectuée. Veuillez consulter la section xref:updating.adoc[Mise à jour de la base de données CVE] pour plus de détails.
+
+== Actions, atténuations et réponses automatisées basées sur les vulnérabilités
+
+Des règles de contrôle d'admission peuvent être créées pour empêcher le déploiement d'images vulnérables sur la base des résultats de l'analyse du registre. Pour plus de détails, voir la section xref:admission.adoc[Contrôle d'admission de la] politique de sécurité ->.
+
+Veuillez consulter la section Politique de sécurité -> xref:responserules.adoc[Règles de réponse pour] obtenir des instructions sur la création de réponses automatisées aux vulnérabilités détectées lors de l'analyse du registre, de l'analyse de l'exécution ou des tests CIS. Les réponses peuvent inclure la mise en quarantaine, la notification par webhook et la suppression.
+
+=== Registres fédérés pour les résultats de la numérisation d'images distribuée
+
+Le cluster primaire (maître) peut analyser un registre/répo désigné comme registre fédéré. Les résultats de l'analyse de ces registres seront synchronisés avec tous les clusters gérés (à distance). Cela permet d'afficher les résultats de l'analyse dans la console du cluster géré et de les utiliser dans les règles de contrôle d'admission du cluster géré. Les registres ne doivent être analysés qu'une seule fois au lieu de l'être par chaque grappe, ce qui réduit l'utilisation de l'unité centrale, de la mémoire et de la bande passante du réseau. Voir la section sur xref:multicluster.adoc[les grappes multiples] pour plus de détails.
+
+=== Mise à l'échelle automatique des modules de numérisation
+
+Les modules de numérisation peuvent être configurés pour une mise à l'échelle automatique en fonction de certains critères. Cela garantit que les travaux de numérisation sont traités rapidement et efficacement, surtout s'il y a des milliers d'images à numériser ou à re-numériser. Trois réglages sont possibles : retardé, immédiat et désactivé. Lorsque les images sont mises en file d'attente pour être numérisées par le contrôleur, celui-ci tient un "compte de tâches" de la taille de la file d'attente. Pour plus de détails, voir la section sur les xref:scanners.adoc[scanners multiples].
+
+[IMPORTANT]
+====
+La mise à l'échelle automatique du scanner n'est pas prise en charge lorsque le scanner est déployé avec un opérateur OpenShift, car l'opérateur modifiera toujours le nombre de pods à sa valeur configurée.
+====
