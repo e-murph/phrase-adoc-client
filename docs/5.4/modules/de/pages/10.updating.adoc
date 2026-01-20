@@ -1,0 +1,7 @@
+= Aktualisieren Sie die {product-name} Container
+:revdate: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /10.updating/10.updating.md
+:page-opendocs-slug:  /Aktualisierung
+
+So aktualisieren Sie die Komponenten von {product-name} 
