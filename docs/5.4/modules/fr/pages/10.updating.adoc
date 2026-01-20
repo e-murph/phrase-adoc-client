@@ -1,7 +1,0 @@
-= Mise à jour des conteneurs {product-name} 
-:revdate: 2024-09-27
-:page-revdate: {revdate}
-:page-opendocs-origin: /10.updating/10.updating.md
-:page-opendocs-slug:  /mise à jour
-
-Comment mettre à jour les composants de {product-name} 
