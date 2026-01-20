@@ -1,0 +1,192 @@
+= Prozessprofil-Regeln
+:revdate: 2025-03-31
+:page-revdate: {revdate}
+:page-opendocs-origin: /05.policy/06.processrules/06.processrules.md
+:page-opendocs-slug:  /policy/processrules
+
+== Richtlinie -> Gruppen -> Prozessprofilregeln
+
+Es gibt zwei Arten von Prozess- und Dateischutz in {product-name}. Die eine ist Zero-drift, bei der die erlaubten Prozess- und Datei-Aktivitäten automatisch auf der Grundlage des Container-Images bestimmt werden, und die zweite ist eine verhaltensorientierte Lernmethode. Sie können auf Wunsch angepasst werden (Regeln manuell hinzufügen).
+
+[NOTE]
+====
+Es gibt eine Einschränkung bei der Ausführung auf Systemen mit dem AUFS-Dateisystem, wobei eine Race Condition auftreten kann und die Prozessregeln für das Blockieren nicht durchgesetzt werden (Protect-Modus). Diese Verstöße werden jedoch weiterhin in den Sicherheitsprotokollen gemeldet.
+====
+
+=== Null-Drift-Prozessschutz
+
+Dies ist der Standardmodus für den Prozess- und Dateischutz. Zero-drift lässt automatisch nur Prozesse zu, die von dem übergeordneten Prozess im ursprünglichen Container-Image stammen, und erlaubt keine Dateiaktualisierungen oder die Installation neuer Dateien. Im Erkennungs- oder Überwachungsmodus warnt zero-drift vor verdächtigen Prozessen oder Dateiaktivitäten. Im Schutzmodus werden solche Aktivitäten blockiert. Bei Zero-Drift ist es nicht erforderlich, dass Prozesse erlernt oder zu einer Erlaubnisliste hinzugefügt werden. Wenn Sie die Nullpunktverschiebung für eine Gruppe deaktivieren, werden stattdessen die für diese Gruppe aufgeführten Prozess- und Dateiregeln wirksam.
+
+[NOTE]
+====
+(1) Die für jede Gruppe aufgeführten Prozess-/Dateiregeln werden immer angewandt, auch wenn die Null-Drift aktiviert ist. Dies bietet eine Möglichkeit, Ausnahmen von der Nullpunktverschiebung zuzulassen oder zu verweigern. Denken Sie daran, dass, wenn eine Gruppe im Erkennungsmodus startet, Prozess-/Dateiregeln automatisch zur Liste hinzugefügt werden können und überprüft und bearbeitet werden sollten, bevor sie in den Überwachungs-/Schutzmodus wechseln.
+
+(2) Es wird empfohlen, systemvertrauenswürdige (de-facto) Namespaces (system und network-plugin) als BASIS-Schutz festzulegen. Beispiele für zu setzende Namensräume sind "kube-system", "openshift-ovn-kubernetes", "ovn-*" usw. Setzen Sie andere Anwendungspods auf Null-Drift.
+====
+
+Die Möglichkeit, den Zero-Drift-Modus zu aktivieren/deaktivieren, befindet sich in der Konsole unter Policy -> Groups. Es können mehrere Gruppen ausgewählt werden, um diese Einstellung für alle ausgewählten Gruppen umzuschalten.
+
+=== Basismodus Prozessschutz
+
+Die Nullpunktverschiebung kann deaktiviert werden, indem auf den einfachen Prozessschutz umgeschaltet wird. Der Basisschutz erzwingt Prozess-/Dateiaktivitäten auf der Grundlage der aufgeführten Prozess- und/oder Dateiregeln für jede Gruppe. Das bedeutet, dass eine Liste von Prozessregeln und/oder Dateiregeln vorhanden sein muss, damit der Schutz greift. Regeln können automatisch durch Behavioral Learning im Erkennungsmodus, manuell über die Konsole oder die Rest-API oder programmatisch durch Anwendung einer CRD erstellt werden. Wenn Basic aktiviert ist und keine Regeln vorhanden sind, werden im Überwachungs- oder Schutzmodus alle Aktivitäten gemeldet/blockiert.
+
+=== Verhaltensbasierter Prozessschutz durch Lernen
+
+Prozessprofilregeln nutzen das Baseline Learning, um ein Profil der Prozesse zu erstellen, die in einer Gruppe von Containern (d.h. einer Gruppe) laufen dürfen. Unter normalen Bedingungen würde in einer Microservices-Umgebung bei Containern mit einem bestimmten Image nur eine begrenzte Anzahl von Prozessen von bestimmten Benutzern ausgeführt. Wenn der Container angegriffen wird, würde der böswillige Angreifer wahrscheinlich einige neue Programme starten, die es in diesem Container normalerweise nicht gibt. Diese abnormalen Ereignisse können von {product-name} erkannt und Warnungen und Aktionen generiert werden (siehe auch Reaktionsregeln).
+
+Prozess-Basisinformationen werden gelernt und aufgezeichnet, wenn sich die Servicegruppe im Erkennungsmodus (Lernmodus) befindet. Wenn im Überwachungs- oder Schutzmodus ein bisher unbekannter Prozess neu gestartet wird oder ein alter Prozess von einem anderen Benutzer als bisher gestartet wird, wird das Ereignis erkannt und als verdächtiger Prozess im Überwachungsmodus gemeldet oder im Schutzmodus gemeldet und blockiert. Die Benutzer können das gelernte Profil bei Bedarf manuell ändern, um Prozesse zuzulassen oder abzulehnen (Whitelist oder Blacklist).
+
+Beachten Sie, dass {product-name} zusätzlich zu den Basisprozessen über eine integrierte Erkennung gängiger verdächtiger Prozesse wie nmap, Reverse Shell usw. verfügt. Diese werden erkannt und gewarnt/geblockt, sofern sie nicht ausdrücklich für jeden Containerdienst auf einer weißen Liste stehen.
+
+[IMPORTANT]
+====
+Kubernetes Liveness Probes werden automatisch zugelassen und zu den gelernten Prozessregeln hinzugefügt, auch im Monitor/Protect-Modus.
+====
+
+=== Prozessregeln für Knoten
+
+Die spezielle reservierte Gruppe "nodes" kann so konfiguriert werden, dass Prozessprofilregeln auf jedem Knoten (Host) im Cluster durchgesetzt werden. Wählen Sie die Gruppe "Knoten" aus und überprüfen Sie die Prozessregeln und bearbeiten Sie sie, falls erforderlich. Schalten Sie dann den Schutzmodus auf "Überwachen" oder "Schützen" um. Die "lokale" (gelernte) Prozessregel-Liste ist eine Kombination aller Prozesse von allen Knoten im Cluster im Erkennungsmodus.
+
+=== Prozessregeln für benutzerdefinierte Gruppen
+
+Für benutzerdefinierte benutzerdefinierte Gruppen müssen die Prozessregeln, falls gewünscht, manuell hinzugefügt werden. Benutzerdefinierte Gruppen lernen Prozessregeln nicht automatisch.
+
+=== Prozessregeln Vorrang
+
+Prozessregeln können sowohl für benutzerdefinierte benutzerdefinierte Gruppen als auch für automatisch erlernte Gruppen existieren. Für benutzerdefinierte Gruppen erstellte Regeln haben Vorrang vor Regeln für automatisch gelernte Gruppen.
+
+Für die Prozessregel-Liste innerhalb einer Gruppe bestimmt die Reihenfolge der Regeln in der Konsole ihre Priorität. Die oberste der aufgelisteten Regeln wird zuerst abgeglichen, bevor die darunter liegenden Regeln abgeglichen werden.
+
+Prozessregeln, deren Name und Pfad beide Platzhalter enthalten, haben Vorrang vor anderen Regeln, um Aktionen zuzulassen. Eine Ablehnungsaktion ist bei beiden Platzhaltern nicht zulässig, um die Blockierung aller Prozesse zu vermeiden.
+
+Prozessregeln mit einer Deny-Aktion und einem Platzhalter im Namen haben Vorrang vor Allow-Aktionen mit einem Platzhalter im Namen.
+
+=== Modus "Entdecken
+
+* Alle neu bearbeiteten Profile werden mit Aktion erlauben
+* Benutzer können die Aktion in "Verweigern" ändern, um eine Warnung zu erzeugen oder zu blockieren, wenn ein neuer Prozess gestartet wird.
+* Benutzer können ein Profil für einen Prozess erstellen, das entweder erlaubt oder verweigert
+* Prozessprofilregeln können Name und/oder Pfad enthalten
+* Der Platzhalter &#42; kann für alle Namen oder Pfade verwendet werden.
+
+[NOTE]
+====
+Ein verdächtiger Prozess (integrierte Erkennung), wie z. B. nmap, ncat usw., wird als verdächtiges Prozessereignis gemeldet und wird NICHT gelernt. Wenn ein Dienst diesen Prozess benötigt, muss der Prozess explizit mit einer "allow"-Profilregel hinzugefügt werden.
+====
+
+=== Überwachungs-/Schutzmodus (neuer Container wird im Überwachungs- oder Schutzmodus gestartet)
+
+* Jeder neue Prozess erzeugt eine Meldung
+* Prozessprofilregeln können Name und/oder Pfad enthalten
+* Der Platzhalter &#42; kann für alle Namen oder Pfade verwendet werden.
+
+Wenn a) der Prozess einer Deny-Regel entspricht, oder b) der Prozess nicht in der Liste der Allow-Regeln enthalten ist, dann:
+
+* Im Monitormodus werden Warnungen generiert
+* Im Schutzmodus werden Prozesse blockiert und Warnungen erzeugt
+
+[NOTE]
+====
+Bei Containerplattformen mit dem AUFS-Speichertreiber kommt es aufgrund der Einschränkungen des Treibers zu einer Verzögerung des Blockierungsmechanismus.
+====
+
+[NOTE]
+====
+Im Schutzmodus aktivieren Systemcontainer wie z. B. Kubernetes-Container die Blockierfunktion nicht, sondern erzeugen ein Prozessverletzungsereignis, wenn eine Prozessverletzung vorliegt.
+====
+
+=== Erstellen von Prozessprofilregeln
+
+Für ein und denselben Prozess können mehrere Regeln erstellt werden. Die Regeln werden der Reihe nach ausgeführt, wobei die erste passende Regel ausgeführt wird.
+
+* Klicken Sie auf der Registerkarte Prozessprofilregeln auf Regel hinzufügen (+)
+* Prozessprofilregeln können Name und/oder Pfad enthalten
+* Der Platzhalter &#42; kann für alle Namen oder Pfade verwendet werden.
+
+Beispiel:  So können Sie den Ping-Prozess von einem beliebigen Verzeichnis aus starten
+
+image:ping.png[pingRule]
+
+Verstöße werden unter Benachrichtigungen -> Sicherheitsereignisse protokolliert.
+
+image:process_event.png[Verstoß]
+
+=== Integrierte Erkennung verdächtiger Prozesse
+
+Die folgenden eingebauten Erkennungen sind in {product-name} automatisch aktiviert.
+
+|===
+| Prozess | Richtung | Gemeldeter Name
+
+| nmap
+| Ausgehend von
+| Port-Scanner
+
+| nc
+| Ausgehend von
+| netcat-Prozess
+
+| ncat
+| Ausgehend von
+| netcat-Prozess
+
+| netcat
+| Ausgehend von
+| netcat-Prozess
+
+| sshd
+| eingehend
+| ssh aus der Ferne
+
+| ssh
+| Ausgehend von
+| ssh zur Fernbedienung
+
+| scp
+| Ausgehend von
+| sichere Kopie
+
+| telnet
+| Ausgehend von
+| Telnet zur Gegenstelle
+
+| in.telnetd
+| eingehend
+| Telnet aus der Ferne
+
+| Jod
+| Ausgehend von
+| dns-tunneling
+
+| Jod
+| eingehend
+| dns-tunneling
+
+| dnscat
+| Ausgehend von
+| dns-tunneling
+
+| dns2tcpc
+| Ausgehend von
+| dns-tunneling
+
+| dns2tcpd
+| eingehend
+| dns-tunneling
+
+| socat
+| Ausgehend von
+| Relaisverfahren
+|===
+
+Darüber hinaus sind die folgenden Erkennungen aktiviert:
+
+* Docker cp
+* root privilege escalation (Benutzerrolle in root-Rolle)
+* tunnel: reverse shell (wird ausgelöst, wenn stdin und stdout auf denselben Socket umgeleitet werden)
+
+Verdächtige Prozesse werden im Erkennungs- oder Überwachungsmodus gemeldet und im Schutzmodus blockiert. Die Erkennung gilt sowohl für Container als auch für Hosts, mit Ausnahme von "sshd", das auf Hosts nicht als verdächtig gilt. Die oben aufgelisteten Prozesse können in die Zulassen-Liste für Container (Gruppen) einschließlich Hosts aufgenommen werden, wenn sie zugelassen werden sollen.
+
+== Split Mode Prozess-/Dateischutz
+
+Container-Gruppen können Prozess-/Dateiregeln in einem anderen Modus als Netzwerkregeln haben, wie xref:modes.adoc#_network_service_policy_mode[hier] beschrieben.
