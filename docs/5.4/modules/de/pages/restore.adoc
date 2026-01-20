@@ -1,0 +1,37 @@
+= Wiederherstellung der {product-name} Konfiguration
+:revdate: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /02.deploying/11.restore/11.restore.md
+:page-opendocs-slug: /Bereitstellung/Wiederherstellung
+
+== Wiederherstellung der {product-name} Konfiguration
+
+Ein Backup der Konfiguration von {product-name} kann verwendet werden, um eine frühere Konfiguration von {product-name} wiederherzustellen. Die Sicherungsdatei kann sowohl manuell erstellt als auch von der Konsole unter Einstellungen -> Konfiguration importiert werden, wobei die gesamte Konfiguration (z. B. Registrierungskonfigurationen, Integrationen, andere Einstellungen und Richtlinien) oder nur die Richtlinien (z. B. Regeln/Sicherheitsrichtlinien) ausgewählt werden können. Die Rest-API kann auch zur automatischen Sicherung der Konfiguration verwendet werden, wie in diesem xref:automation.adoc#_exportimport_configuration_file[Beispiel] zu sehen ist.
+
+Cluster-Ereignisse, bei denen alle Controller den Betrieb einstellen und damit den Echtzeit-Konfigurationsstatus verlieren, können automatisch wiederhergestellt werden, wenn der xref:production.adoc#_backups_and_persistent_data[persistente Speicher] ordnungsgemäß konfiguriert wurde.
+
+[NOTE]
+====
+{product-name} unterstützt weder die teilweise Wiederherstellung von Objekten (z. B. nur Netzwerkregeln) noch die Wiederherstellung mit Zeitstempel (z. B. Wiederherstellung aus Datum/Zeit-Snapshots). Bitte verwenden Sie xref:automation.adoc#_exportimport_configuration_file[Automatisierungsskripte] zur regelmäßigen Sicherung von Konfigurationsdateien und zur Verwaltung von Zeitstempeln.
+====
+
+[CAUTION]
+====
+Die Backup-Konfigurationsdateien sollten in keiner Weise verändert werden. Jegliche Änderung dieser Daten gegenüber dem exportierten Zustand kann zu Fehlern bei der Wiederherstellung und zu einem unvorhersehbaren Ergebnis führen.
+====
+
+[IMPORTANT]
+====
+Backup-Konfigurationsdateien sollten verwendet werden, um den Zustand von {product-name} auf demselben Cluster wiederherzustellen, von dem sie exportiert wurden. Das Anwenden einer Backup-Konfigurationsdatei von einem anderen Cluster könnte zu unvorhersehbaren Ergebnissen führen.
+====
+
+=== Empfohlene Hochverfügbarkeitseinstellungen
+
+Die manuelle Sicherung und Wiederherstellung der Konfiguration sollte nur als letzter Ausweg geplant werden. Die folgenden Schritte werden für eine hohe Verfügbarkeit empfohlen.
+
+. Verwenden Sie Helm mit einer ConfigMap für die anfängliche Bereitstellung und Konfiguration.
+. Verwenden Sie CRDs für die Definition von Richtlinien, wie z. B. Netzwerk/Prozess, Zulassungskontrolle und andere Regeln.
+. Betreiben Sie mehrere Controller (mindestens 3), um die Konfiguration zwischen laufenden Pods automatisch zu synchronisieren und sicherzustellen, dass sie auf verschiedenen Hosts laufen.
+. Konfigurieren Sie den persistenten Speicher (als Teil von Schritt 1), um bei einem clusterweiten Ausfall, bei dem alle Controller nicht mehr funktionieren, wiederhergestellt zu werden.
+. Regelmäßige Sicherung der Konfiguration in Sicherungsdateien mit Zeitstempel.
+. Stellen Sie die {product-name} Konfiguration eines Clusters als letzten Ausweg aus einer Sicherungsdatei wieder her und wenden Sie nach der Wiederherstellung alle CRDs an, die seit der letzten Sicherung neu waren oder geändert wurden.

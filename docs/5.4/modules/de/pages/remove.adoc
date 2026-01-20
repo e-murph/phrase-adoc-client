@@ -1,0 +1,76 @@
+= Entfernen oder Zurücksetzen {product-name}
+:revdate: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /02.deploying/10.remove/10.remove.md
+:page-opendocs-slug: /Einsatz/Entfernen
+
+== Entfernen von {product-name} Bereitstellung / Containern
+
+Um die Bereitstellung von {product-name} auf Kubernetes zu entfernen, verwenden Sie die gleiche yaml-Datei für die Bereitstellung im Befehl delete.
+
+[,shell]
+----
+kubectl delete -f neuvector.yaml
+----
+
+Dadurch werden die Dienste und Container-Bereitstellungen von {product-name} entfernt. Möglicherweise möchten Sie auch den neuvector-Namensraum, das persistente Volume, die Clusterrollen und die Clusterrolebindings löschen, die in den Bereitstellungsschritten erstellt wurden.
+
+Wenn Sie {product-name} mit einer Helm-Karte oder einem Operator eingesetzt haben, sollten Sie {product-name} mit Helm oder dem entsprechenden Operator-Befehl löschen.
+
+== Zurücksetzen von {product-name} auf einen Ausgangszustand
+
+Zusätzlich zum Löschen wie oben beschrieben und dem erneuten Bereitstellen von {product-name} können in Kubernetes die folgenden Schritte durchgeführt werden, um {product-name} zurückzusetzen. Dabei werden gelernte Regeln, Gruppen und andere Konfigurationen entfernt, die Bereitstellung von {product-name} bleibt jedoch intakt.
+
+. Skalieren Sie den Einsatz des Controllers auf 0.
+. (Optional) Wenn ein persistentes Volume verwendet wird, löschen Sie das Backup des persistenten Volumes und die erstellten Registrierungsordner.
+. Skalieren Sie den Controller-Einsatz auf 3.
+
+== Zurücksetzen des Admin-Kennworts
+
+Das Admin-Passwort ist der Schlüssel zur Verwaltung der {product-name} -Bereitstellung und zur Anzeige der Netzwerkaktivitäten des Clusters.  Es ist wichtig, das Passwort bei der Installation zu ändern und es sicher aufzubewahren.  Manchmal wird das Passwort zu gut bewacht und geht verloren oder der Administrator verlässt das Unternehmen.  Wenn Sie über kubectl-Zugriff auf den Cluster verfügen, können Sie das Admin-Passwort mit den folgenden Schritten auf den Standardwert zurücksetzen.
+
+Exec in eine der Steuerungen ein.
+
+[,shell]
+----
+kubectl exec -it <controller> -n neuvector -- sh
+----
+
+Überprüfen Sie, ob der Admin-Eintrag vorhanden ist, und speichern Sie die json-Ausgabe irgendwo, um sie sicher aufzubewahren.
+
+[,shell]
+----
+consul kv get object/config/user/admin
+----
+
+Nehmen Sie die Ausgabe des obigen Befehls consul kv get und ersetzen Sie die Zeichenfolge password_hash durch die folgende Zeichenfolge.
+
+[,shell]
+----
+c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec
+----
+
+Setzen Sie das Passwort für das Administratorkonto auf den Standardwert zurück. ( <UPDATED_consul_kv_get_output_with_new_password_hash> VOR DER AUSFÜHRUNG ERSETZEN!!!)
+
+[,shell]
+----
+consul kv put object/config/user/admin '<UPDATED_consul_kv_get_output_with_new_password_hash>'
+----
+
+[WARNING]
+.BEISPIEL UNTEN: (NICHT OHNE ERSETZUNG DURCH AUSGABE AUSFÜHREN)
+====
+[,shell]
+----
+consul kv put object/config/user/admin '{"fullname":"admin","username":"admin","password_hash":"c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec","pwd_reset_time":"2022-03-24T20:50:15.341074451Z","pwd_hash_history":null,"domain":"","server":"","email":"","role":"admin","role_oride":false,"timeout":300,"locale":"en","role_domains":{},"last_login_at":"2022-03-24T20:49:32.577877044Z","login_count":1,"failed_login_count":0,"block_login_since":"0001-01-01T00:00:00Z"}'
+----
+
+Antwort:
+
+[,shell]
+----
+Success! Data written to: object/config/user/admin
+----
+
+Melden Sie sich mit admin/admin an und ändern Sie das Passwort.
+====
