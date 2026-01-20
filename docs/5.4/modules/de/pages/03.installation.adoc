@@ -1,8 +1,0 @@
-= Installation/Einsatz
-:revdate: 27.09.2020
-:page-revdate: {revdate}
-:page-opendocs-origin: /01.basics/03.installation/03.installation.md
-:page-opendocs-slug:  /basics/installation
-:taxonomy: {"category"=>"docs"}
-
-Stellen Sie die {product-name} Container mithilfe von Kubernetes, OpenShift, Rancher, AWS EKS, Azure AKS, Google GKE, IBM IKS, Docker Run oder Docker-Compose bereit.
