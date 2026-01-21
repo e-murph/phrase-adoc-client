@@ -1,0 +1,7 @@
+= Politique et règles de sécurité
+:revdate1: 2024-09-25
+:page-revdate: {revdate}
+:page-opendocs-origin: /05.policy/05.policy.md
+:page-opendocs-slug:  /politique
+
+Gérer les règles du réseau, des processus et du système de fichiers. Les modes découverte, surveillance et protection permettent d'apprendre le comportement normal des applications et de détecter les violations.
