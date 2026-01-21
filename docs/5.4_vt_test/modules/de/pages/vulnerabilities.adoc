@@ -1,0 +1,83 @@
+= Schwachstellen-Management
+:revdate1: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /06.scanning/01.scanning/01.vulnerabilities/01.vulnerabilities.md
+:page-opendocs-slug:  /scanning/scanning/schwachstellen
+
+== Schwachstellenmanagement mit {product-name}
+
+{product-name} ermöglicht das automatische Scannen und Verwalten von Schwachstellen in der gesamten Pipeline. Zu den bewährten Verfahren für den Umgang mit Schwachstellen in {product-name} gehören:
+
+* Scannen während der xref:build-image-scanning.adoc[Build-Phase], wobei der Build fehlschlägt, wenn es kritische Sicherheitslücken "mit verfügbarem Fix" gibt. Dies zwingt die Entwickler dazu, behebbare Schwachstellen zu beheben, bevor sie in den Registern gespeichert werden.
+* Scannen Sie Staging- und Produktionsregistrierungen kontinuierlich auf neu entdeckte Schwachstellen. Schwachstellen, für die es bereits Abhilfemaßnahmen gibt, müssen entweder sofort behoben werden, oder es wird eine Frist eingeräumt, um sie zu beheben.
+* Konfigurieren Sie Regeln für xref:admission.adoc[die Zugangskontrolle], um Bereitstellungen für die Produktion auf der Grundlage von Kriterien wie kritisch/hoch, verfügbare Korrekturen und gemeldetes Datum zu blockieren.
+* Kontinuierliche Überprüfung der Produktionsknoten/Hosts, Container und der Orchestrierungsplattform auf neu entdeckte Schwachstellen. Implementieren Sie Reaktionen auf der Grundlage von Kritikalität/Schweregrad, die in Form von Webhook-Warnungen (die die Sicherheitsabteilung und den Entwickler kontaktieren), Quarantäne-Containern oder einer Frist für die Behebung des Problems erfolgen können.
+* Stellen Sie sicher, dass sich die laufenden Container im Überwachungs- oder Schutzmodus mit entsprechenden Whitelist-Regeln befinden, um Schwachstellen "virtuell zu flicken", damit sie in der Produktion nicht ausgenutzt werden können.
+* Scannen von distroless und PhotonOS-basierten Images.
+
+Das Dashboard in {product-name} zeigt eine zusammenfassende Risikobewertung, die auch Schwachstellen enthält, die zur Verringerung des Risikos von Schwachstellen verwendet werden können. Weitere Einzelheiten finden Sie unter xref:improve-score.adoc[Verbesserung der Risikobewertung].
+
+Das andere wichtige Werkzeug zum Prüfen, Filtern und Berichten über Schwachstellen befindet sich im Menü Sicherheitsrisiken.
+
+=== Menü "Sicherheitsrisiken" - Schwachstellen
+
+In diesem Menü werden die Ergebnisse von Scans auf Sicherheitslücken in Registry (Image), Knoten und Containern sowie die Prüfungen auf Einhaltung der Vorschriften aus dem Menü Assets kombiniert, um eine durchgängige Verwaltung von Sicherheitslücken und entsprechende Berichte zu ermöglichen.
+
+Das Menü "Schwachstellen" bietet ein leistungsfähiges Werkzeug zur Erkundung:
+
+* Erleichtern Sie sich das Filtern für das Anzeigen oder Herunterladen von Berichten, indem Sie einen Suchbegriff eingeben oder den erweiterten Filter neben dem Feld verwenden. Mit dem erweiterten Filter können Benutzer Schwachstellen nach verfügbaren (oder nicht verfügbaren) Korrekturen, Dringlichkeit, Arbeitslasten, Diensten, Containern, Knoten oder Namespace-Namen filtern.
+* Verstehen Sie die Auswirkungen von Schwachstellen und Konformitätsprüfungen, indem Sie auf die Zeile mit den Auswirkungen klicken und die Abhilfemaßnahmen sowie die betroffenen Images, Knoten oder Container überprüfen.
+* Zeigen Sie den Schutzstatus (Exploit-Risiko) einer Schwachstelle oder eines Compliance-Problems an, um festzustellen, ob {product-name} Run-Time-Sicherheitsschutz (Regeln) für die betroffenen Knoten oder Container aktiviert ist.
+* Akzeptieren" Sie eine Schwachstelle/CVE, nachdem sie überprüft wurde, um sie vor der Anzeige zu verbergen und sie aus den Berichten zu entfernen.
+
+image:vulnerabilities_4_4.png[SecurityRisks]
+
+Verwenden Sie das Filterfeld, um einen String-Treffer einzugeben, oder verwenden Sie den erweiterten Filter daneben, um spezifischere Kriterien auszuwählen, wie unten gezeigt. Die heruntergeladenen PDF- und CSV-Berichte zeigen nur die gefilterten Ergebnisse.
+
+image:advanced_filter_4.png[AdvancedFilter]
+
+Wenn Sie ein aufgelistetes CVE auswählen, erhalten Sie zusätzliche Informationen über das CVE, die Abhilfemaßnahmen und darüber, welche Images, Knoten oder Container betroffen sind. Das Symbol für den Schutzstatus (Kreis) zeigt verschiedene Farben an, um den ungefähren Prozentsatz der betroffenen Objekte anzugeben, die während der Laufzeit nicht durch {product-name} geschützt sind, durch {product-name} Regeln (in einem Überwachungs- oder Schutzmodus) geschützt sind oder während der Laufzeit nicht betroffen sind (z. B. hat ein mit dieser Sicherheitslücke gescanntes Image keine laufenden Container). Das Farbschema für die Spalte Schutzstatus lautet:
+
+* Schwarz = unbeeinflusst
+* Grün = geschützt durch {product-name} mit Monitor- oder Protect-Modus
+* Rot = ungeschützt durch {product-name}, noch im Erkennungsmodus
+
+Das Fenster der Auswirkungsanalyse (das die betroffenen Bilder, Knoten und Container anzeigt) ist farblich gestaltet:
+
+* Schwarz = unbeeinflusst. Es gibt keine Container, die dieses Image in der Produktion verwenden
+* Lila = läuft im Monitormodus in der Produktion
+* Dunkelgrün = läuft im Schutzmodus in der Produktion
+* Hellblau = läuft im Erkennungsmodus in der Produktion (ungeschützt)
+
+Die Impact-Farben sollen den Laufzeitschutz-Farben für die Modi Discover, Monitor und Protect an anderen Stellen in der Konsole {product-name} entsprechen.
+
+=== Akzeptanz von Schwachstellen
+
+Sie können eine Schwachstelle (CVE) "akzeptieren", um sie von Berichten, Ansichten, Risikobewertungen usw. auszuschließen. Aus verschiedenen Bildschirmen wie Sicherheitsrisiken -> Schwachstellen, Assets -> Container usw. kann eine Schwachstelle ausgewählt und die Schaltfläche Akzeptieren angeklickt werden. Sobald es akzeptiert wurde, wird es der Liste der Sicherheitsrisiken -> Schwachstellenprofile hinzugefügt. Sie kann hier eingesehen, exportiert und bearbeitet werden. Beachten Sie, dass diese Akzeptanzfunktion auf aufgelistete Bilder und/oder Namensräume beschränkt werden kann. Neue Einträge können von diesem Bildschirm aus auch manuell zu dieser Liste hinzugefügt werden.
+
+Um eine Schwachstelle global zu akzeptieren, gehen Sie zur Seite Sicherheitsrisiken -> Schwachstellen und wählen Sie die Schwachstelle aus, dann Akzeptieren. Dadurch wird ein globales Schwachstellenprofil für dieses CVE erstellt.
+
+image:accept_global.png[global]
+
+Um eine bei einem Image-Scan gefundene Sicherheitslücke zu akzeptieren, öffnen Sie die Ergebnisse des Image-Scans in Assets -> Registries, ziehen das Dropdown-Menü Ansicht herunter und wählen Akzeptieren. Beachten Sie, dass Sie auch wählen können, ob Sie akzeptierte Sicherheitsrisiken für dieses Bild anzeigen oder ausblenden möchten. HINWEIS: Diese Aktion erstellt einen Schwachstellenprofileintrag für dieses CVE nur in diesem IMAGE.
+
+image:accept_image_cve.png[image]
+
+Um eine in einem Container gefundene Sicherheitslücke in Assets -> Container zu akzeptieren, markieren Sie die Sicherheitslücke, ziehen das Dropdown-Menü Ansicht herunter und wählen Akzeptieren. Beachten Sie, dass Sie auch wählen können, ob Sie akzeptierte Sicherheitsrisiken für diesen Container anzeigen oder ausblenden möchten. HINWEIS: Mit dieser Aktion wird ein Schwachstellenprofil für dieses CVE nur in diesem NAMESPACE erstellt.
+
+image:accept_containers.png[container]
+
+Diese Aktion kann auch in Assets -> Nodes durchgeführt werden, wodurch ein Schwachstellenprofil für das CVE für alle Container, Images und Namespaces erstellt wird.
+
+[IMPORTANT]
+====
+Global akzeptierte Schwachstellen sind von der Ansicht in Sicherheitsrisiken -> Schwachstellen und in exportierten Berichten von dieser Seite ausgeschlossen. Akzeptierte Schwachstellen, die auf bestimmte Bilder oder Namespaces beschränkt sind, werden weiterhin in der Ansicht angezeigt, aber für Berichte, bei denen der Erweiterte Filter die Ansicht auf diese Bilder oder Namespaces beschränkt, ausgeschlossen.
+====
+
+=== Verwalten von Schwachstellenprofilen
+
+Jede akzeptierte Schwachstelle/CVE erzeugt einen Eintrag in der Liste der Sicherheitsrisiken -> Schwachstellenprofile. Diese Einträge können bearbeitet werden, um Attribute wie Bildname(n) und Namensraum(e) hinzuzufügen oder zu entfernen.
+
+image:vuln_profile.png[Profil]
+
+Neue akzeptierte Schwachstellen können hier ebenfalls hinzugefügt werden, indem Sie den CVE-Namen eingeben, der akzeptiert werden soll.
