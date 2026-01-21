@@ -1,0 +1,7 @@
+= Einsatzbeispiele für spezielle Einsätze mit dem Allinone-Container
+:revdate1: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /13.special/13.special.md
+:page-opendocs-slug:  /besonders
+
+Bereitstellung von {product-name} mit Kubernetes, OpenShift, Docker EE/UCP, Rancher, Kubernetes-Diensten in der öffentlichen Cloud und mehr...
