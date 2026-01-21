@@ -1,0 +1,48 @@
+= Microsoft AD
+:revdate1: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /08.integration/03.msad/03.msad.md
+:page-opendocs-slug:  /integration/msad
+
+== Configuration d'Active Directory
+
+Ceci explique comment {product-name} s'authentifie avec Windows Active Directory.
+La page de configuration du serveur Windows Active Directory est présentée ci-dessous.
+
+image:ad1.png[ad_config]
+
+Nom d'utilisateur : Il peut s'agir de n'importe quel utilisateur disposant d'un droit de lecture sur l'objet DN de base. L'attribut dn doit être utilisé comme indiqué ci-dessous, ou le nom de connexion Windows tel que user@local.nvtest.com.
+
+image:ad2.png[ad_config]
+
+Base DN : Il s'agit d'un objet Windows Active Director racine pour l'authentification des utilisateurs. L'autorisation d'accès minimale requise est la lecture. Comme le montre l'exemple ci-dessus, l'objet OU=IT,DC=local,DC=nvtest,DC=com n'est autorisé que pour un compte d'utilisateur défini dans le champ Nom d'utilisateur pour autoriser la lecture.
+
+image:ad3.png[ad_config]
+
+Avec les paramètres de nom d'utilisateur et de DN de base ci-dessus, {product-name} est en mesure de se lier à Windows Active Directory avec succès. Cliquez sur le bouton TEST DE CONNEXION pour vérifier la connexion.
+
+image:ad4.png[ad_config]
+
+Nom d'utilisateur : Il est nécessaire d'utiliser l'attribut sAMAccountName UNIQUEMENT pour établir la correspondance. Par exemple, dans l'écran ci-dessous, {product-name} va vérifier si l'utilisateur ituser(CN=ituser,OU=IT,DC=local,DC=nvtest,DC=com) est capable de se connecter à la console web {product-name}.
+
+[NOTE]
+====
+{product-name} n'utilise pas les valeurs des attributs cn, displayName, dn, givenName, name ou userPrincipalName, etc. pour vérifier l'utilisateur testé.
+====
+
+image:ad5.png[ad_config]
+
+La dernière partie est le mappage des rôles pour {product-name} pour la connexion à la console web.
+
+image:ad6.png[ad_config]
+
+Dans l'exemple ci-dessus, le groupe défini, _d_s_itgroup, dans le rôle {product-name} doit avoir les attributs member et sAMAccountType. La valeur de l'attribut sAMAccountType DOIT être 268435456, c'est-à-dire le groupe de sécurité globale, et le nom d'utilisateur doit figurer dans les listes de membres.
+
+image:ad7.png[ad_config]
+
+Attribut du membre du groupe : Il s'agit d'un attribut membre de Windows Active Directory par défaut et il est utilisé pour le mappage des rôles, comme indiqué ci-dessus.
+Si toutes les conditions sont remplies, l'utilisateur Windows Active Directory devrait pouvoir se connecter à la console web {product-name}.
+
+=== Mappage des groupes aux rôles et aux espaces de noms
+
+Veuillez consulter la section xref:users.adoc#_mapping_groups_to_roles_and_namespaces[Utilisateurs et rôles] pour savoir comment associer des groupes à des rôles prédéfinis et personnalisés ainsi qu'à des espaces de noms dans {product-name}.

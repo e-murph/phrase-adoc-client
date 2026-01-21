@@ -1,0 +1,51 @@
+= Rapports d'événements
+:revdate1: 2025-01-16
+:page-opendocs-origin: /15.ui_extension/03.notifications/03.notifications.md
+:page-opendocs-slug:  /ui_extension/notifications
+
+== Événements liés à la sécurité
+
+Dans l'extension de l'interface utilisateur sur le portail Rancher, l'onglet **Security Events** fonctionne de la même manière que la page autonome NeuVector. Les événements peuvent être déclenchés par plusieurs facteurs :
+
+* Conversation dangereuse ou transport de données d'un point à un autre (nœud ou pod).
+* Connexion violée de bout en bout et contraire à la politique du réseau.
+* Opération contraire à la règle du profil de processus.
+* Opération contraire à la règle d'accès aux fichiers.
+
+image:sec_events.png[Événements liés à la sécurité]
+
+Faites glisser le point vers la gauche ou la droite sur le curseur de temps pour filtrer les événements par date.
+
+image:sec_events_time_filter.png[Événements liés à la sécurité]
+
+Tapez des mots-clés dans le champ de filtrage rapide pour filtrer tous les événements qui contiennent le mot-clé.
+
+image:sec_events_quick_filter.png[Événements liés à la sécurité]
+
+Ouvrez le panneau latéral du **filtre avancé** et vous trouverez de nombreuses options pour appuyer votre recherche :
+
+* La gravité, le lieu et la catégorie peuvent être filtrés en fonction des balises situées à droite du titre de l'événement.
+* La liste d'autocomplétion prend en charge les entrées de l'utilisateur pour les champs Hôte, Source et Destination et prend en charge une boîte de saisie à balises multiples pour l'espace de noms.
+
+image:sec_events_adv_filter.png[Événements liés à la sécurité]
+
+Cliquez sur un événement pour développer le panneau et afficher plus de détails. Dans la boîte de message, vous pouvez voir plus d'informations.
+
+image:sec_event_detail.png[Événements liés à la sécurité]
+
+Le nom de l'**hôte** est cliquable et ouvre la fenêtre contextuelle des détails de l'hôte. Les champs **Vulnérabilités** et **Groupe** ont un lien externe pour rediriger vers la page SSO de NeuVector.
+
+image:node_detail_open.png[Événements liés à la sécurité]
+
+Le nom de la **charge de travail** est cliquable et ouvre la fenêtre contextuelle des détails de la charge de travail. Le champ **Groupe** comporte un lien externe qui redirige vers la page SSO de NeuVector.
+
+image:pod_detail_open.png[Événements liés à la sécurité]
+
+Le champ **Signalé par** dans la boîte de message est cliquable et ouvre la fenêtre contextuelle des détails de l'agent d'exécution.
+
+image:enforcer_detail_open.png[Événements liés à la sécurité]
+
+== Fonctions non incluses lors de la comparaison avec le NeuVector Standalone Page
+
+* Réviser / Proposer une règle.
+* Rapports PDF.

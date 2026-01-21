@@ -1,0 +1,15 @@
+= Évaluation de la configuration des ressources Kubernetes
+:revdate1: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /05.policy/03.admission/02.assessment/02.assessment.md
+:page-opendocs-slug:  /policy/admission/assessment
+
+== Déploiement de ressources Kubernetes Analyse de fichiers
+
+{product-name} est capable d'analyser les fichiers yaml de déploiement pour évaluer la configuration en fonction des règles de contrôle d'admission. Ceci est utile pour analyser les fichiers yaml de déploiement au début du pipeline afin de déterminer si le déploiement violerait des règles avant de tenter le déploiement.
+
+Pour télécharger un fichier yaml à analyser, allez sur Policy -> Admission Control et cliquez sur le bouton Configuration Assessment. Dans la fenêtre, sélectionnez un fichier à télécharger, puis Testez.
+
+image:assessment.png[L'évaluation]
+
+Vous verrez alors une analyse du fichier, si le déploiement est autorisé, et des messages concernant les règles qui s'appliquent au fichier de déploiement.

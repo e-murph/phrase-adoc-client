@@ -1,0 +1,31 @@
+= Bamboo
+:revdate1: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /06.scanning/03.build/02.bamboo/02.bamboo.md
+:page-opendocs-slug:  /scanning/build/bamboo
+
+== Recherche de vulnérabilités dans le pipeline de construction de Bamboo
+
+Le plug-in Bamboo pour {product-name} peut être utilisé pour rechercher des vulnérabilités dans le pipeline Bamboo. Le plug-in peut être téléchargé à partir du menu Admin -> Add-ons dans Bamboo. Utilisez Find New Apps pour rechercher {product-name}. Le plug-in est également décrit sur le site https://marketplace.atlassian.com/apps/1221199/neuvector[Atlassian Marketplace].
+
+Déployez le conteneur {product-name} Allinone ou Controller si vous ne l'avez pas encore fait sur un hôte accessible par Bamboo. Notez l'adresse IP de l'hôte sur lequel tourne l'Allinone ou le contrôleur.
+
+En outre, assurez-vous qu'un conteneur de scanner {product-name} est déployé et configuré pour se connecter à l'Allinone ou au contrôleur. Dans les versions 4.0 et ultérieures, le conteneur neuvector/scanner doit être déployé séparément de l'allinone ou du contrôleur.
+
+=== Configuration des paramètres globaux
+
+Configurez les paramètres du contrôleur {product-name} /Allinone, y compris l'authentification {product-name} et l'authentification du registre.
+
+image:bamboo_nv_global_config.png[global-image]
+
+=== Configurer le référentiel et la politique de construction
+
+Créez une tâche et entrez le référentiel et l'étiquette à analyser ainsi que la politique de construction pour faire échouer la construction si des vulnérabilités sont détectées. Activez l'analyse par couches si les résultats doivent contenir une analyse des vulnérabilités pour chaque couche de l'image.
+
+image:bamboo_nv_local_config_2.png[local-image]
+
+=== Résultats de l'examen
+
+Examinez les résultats dans les journaux d'analyse, y compris le résumé de l'analyse, la raison de l'échec, le cas échéant, et les détails de chaque CVE détecté.
+
+image:bamboo_set_criteria_to_fail_3.png[fail-image]

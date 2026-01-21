@@ -1,0 +1,43 @@
+= Module scanner enfichable Harbor
+:revdate1: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /06.scanning/02.registry/01.harbor/01.harbor.md
+:page-opendocs-slug:  /scanning/registre/port
+
+== Analyse des registres de Harbor à l'aide du scanner enfichable
+
+{product-name} permet d'invoquer l'analyseur {product-name} à partir des registres Harbor par l'intermédiaire de l'interface d' https://github.com/goharbor/pluggable-scanner-spec[analyseur enfichable]. Cela nécessite la configuration de la connexion au contrôleur (API exposée). L'adaptateur Harbor appelle le point de terminaison du contrôleur pour déclencher un balayage, qui peut être automatique en cas de poussée. Les services d'interrogation peuvent être utilisés pour des balayages périodiques. Les résultats de l'analyse des contrôleurs primaires de la fédération SONT propagés aux clusters distants.
+
+[NOTE]
+====
+Il y a un problème avec l'erreur du point de terminaison de l'adaptateur basé sur HTTPS : veuillez ignorer l'erreur de test de connexion, elle fonctionne même si une erreur est affichée (ne pas tenir compte de la validation du certificat).
+====
+
+
+=== Déploiement de l'adaptateur de registre {product-name} 
+
+Le tableau 5.2 Helm contient des options pour déployer l' https://github.com/neuvector/neuvector-helm/blob/master/charts/core/templates/registry-adapter.yaml[adaptateur de registre] pour Harbor. Il peut également être récupéré manuellement depuis le repo neuvector/registry-adapter sur Docker Hub. Les options comprennent également la définition du protocole de demande de registre Harbor et du nom du secret d'authentification de base.
+
+Après le déploiement de l'adaptateur, il est nécessaire de le configurer dans Harbor.
+
+image:5_2_adapter_configuration.png[Port]
+
+Le point de terminaison de l'adaptateur doit être saisi et l'adaptateur se connecte au contrôleur, qui est généralement exposé en tant que service externe afin que l'adaptateur puisse s'y connecter. En outre, les informations d'authentification d'un utilisateur valide sur {product-name} doivent être saisies.
+
+=== Numérisation d'images à partir d'un registre de port
+
+Après un déploiement réussi et la connexion à un contrôleur, une analyse d'image peut être déclenchée manuellement ou automatiquement à partir de Harbor.
+
+image:2_Scan_image.png[Port]
+
+Des analyses périodiques (programmées) peuvent être configurées par l'intermédiaire des services d'interrogation dans Harbor, afin de s'assurer que la dernière base de données CVE est utilisée pour analyser à nouveau les images dans les registres.
+
+image:4_interrogation.png[Port]
+
+Les résultats du balayage peuvent être visualisés directement dans Harbor.
+
+image:3_scanresults.png[résultats]
+
+=== Exemple de déploiement Yaml
+
+Exemples pour https://raw.githubusercontent.com/neuvector/manifests/main/kubernetes/5.3.0/neuvector-registry-adapter-k8s.yaml[OpenShift] Kubernetes et https://raw.githubusercontent.com/neuvector/manifests/main/kubernetes/5.3.0/neuvector-registry-adapter-oc.yaml[]
