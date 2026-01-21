@@ -1,0 +1,7 @@
+= Automatisation {product-name}
+:revdate1: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /11.automation/11.automation.md
+:page-opendocs-slug:  /automation
+
+{product-name} peut être intégré dans le flux de travail CI/CD afin d'automatiser l'analyse et le déploiement. Nous donnons des exemples d'utilisation de l'API REST pour automatiser le déploiement de {product-name}.
