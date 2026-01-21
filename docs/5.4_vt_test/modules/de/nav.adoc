@@ -1,0 +1,100 @@
+:revdate1: 2025-01-16
+* xref:overview.adoc[{product-name} Übersicht]
+* Verstehen {product-name}
+** xref:requirements.adoc[Systemanforderungen]
+** xref:installation.adoc[Vorbereitung des Einsatzes]
+** xref:policy-overview.adoc[Überblick über die Sicherheitspolitik]
+** xref:integration.adoc[Integration von Unternehmen]
+** xref:ci-workflow.adoc[CI/CD-Arbeitsablauf]
+* Operative Aufgaben
+** Bereitstellung von {product-name}
+*** xref:configmap.adoc[Bereitstellen mit ConfigMap]
+*** xref:operators.adoc[Einsatz mit Operatoren]
+*** xref:publick8s.adoc[Bereitstellung von SUSE Security in der Public Cloud]
+**** xref:awsmarketplace.adoc[AWS Marketplace-Auflistung]
+*** xref:kubernetes.adoc[Kubernetes]
+*** xref:openshift.adoc[OpenShift]
+*** xref:rancher.adoc[Rancher-Bereitstellung]
+*** xref:airgap.adoc[Einsatz unter Luftabschluss]
+*** xref:docker.adoc[Docker]
+*** xref:updating.adoc[Aktualisierung von {product-name}]
+*** xref:testing.adoc[Evaluierung und Prüfung {product-name}]
+*** xref:troubleshooting.adoc[Fehlerbehebung bei Einsätzen]
+** xref:users.adoc[Benutzer und Rollen]
+** xref:restore.adoc[Wiederherstellung der {product-name} Konfiguration]
+** xref:remove.adoc[Entfernen oder Zurücksetzen {product-name}]
+** xref:internal.adoc[Ersetzen von internen Zertifikaten]
+** xref:replacecert.adoc[Ersetzen von selbstsignierten Zertifikaten]
+** xref:rest-api.adoc[Verbindung zum Manager, REST API Server]
+** xref:automation.adoc[Automatisierung mit REST API]
+* {product-name} Schnittstelle
+** xref:navigation.adoc[Navigieren in der Konsole]
+** xref:multicluster.adoc[Multi-Cluster-Management für Unternehmen]
+** xref:modes.adoc[Modi: Entdecken, überwachen, schützen]
+** xref:reporting.adoc[Berichterstattung und Benachrichtigungen]
+** xref:customui.adoc[Anpassen der Benutzeroberfläche]
+* Sicherheitsmanagement
+** Sicherheitspolitik
+*** Zulassungskontrollen
+**** xref:admission.adoc[Zulassungskontrollen]
+**** xref:sigstore.adoc[Sigstore Cosign Signaturprüfgeräte]
+**** xref:assessment.adoc[Konfigurationsbewertung für Kubernetes-Ressourcen]
+*** xref:groups.adoc[Gruppen]
+*** xref:networkrules.adoc[Netzregeln]
+*** xref:processrules.adoc[Prozessprofil-Regeln]
+*** xref:filerules.adoc[Regeln für den Dateizugriff]
+*** xref:responserules.adoc[Antwortregeln]
+*** xref:dlp.adoc[DLP- und WAF-Sensoren]
+*** xref:threats.adoc[Signaturen für Netzwerkbedrohungen]
+*** xref:customcompliance.adoc[Individuelle Konformitätskontrollen]
+*** xref:federated.adoc[Föderierte Politik]
+*** Benutzerdefinierte Ressourcendefinitionen
+**** xref:usingcrd.adoc[CRD verwenden]
+**** xref:import.adoc[CRD von der Konsole importieren]
+** Sicherheitsrisiken, Scannen und Einhaltung von Vorschriften
+*** Scannen und Einhaltung von Vorschriften
+**** xref:scanning.adoc[Scannen]
+**** xref:vulnerabilities.adoc[Schwachstellen-Management]
+**** xref:compliance.adoc[Compliance & CIS-Benchmarks]
+*** Scannen der Registry
+**** xref:registry-scanning-configuration.adoc[Konfiguration des Registrierungs-Scans]
+**** xref:harbor.adoc[Steckbares Harbor-Scanner-Modul]
+**** xref:ecr-iam.adoc[ECR-Scannen mit IAM-Rollen]
+**** xref:gcr-sa.adoc[GCR-Scannen mit Dienstkonten]
+*** Build Phase Image Scanning
+**** xref:build-image-scanning.adoc[Lokales]
+**** xref:jenkins.adoc[Jenkins]
+**** xref:bamboo.adoc[Bamboo]
+**** xref:circleci.adoc[CircleCI]
+**** xref:azuredevops.adoc[Azure DevOps]
+**** xref:gitlab.adoc[Gitlab]
+**** xref:github.adoc[GitHub]
+*** xref:improve-score.adoc[Verbesserung der Sicherheitsrisikobewertung]
+*** xref:cve-sources.adoc[CVE-Datenbank-Quellen & Version]
+*** xref:updating-cve-database.adoc[Aktualisierung der CVE-Datenbank]
+*** xref:scanners.adoc[Parallelscanner und Stand-Alone-Scanner]
+* Unternehmensfunktionen
+** Integration
+*** xref:ldap.adoc[LDAP]
+*** xref:msad.adoc[Microsoft AD]
+*** xref:saml.adoc[SAML (Okta)]
+*** xref:msazure.adoc[SAML (Azure AD)]
+*** xref:adfs.adoc[SAML (ADFS)]
+*** xref:openid.adoc[OpenID-Verbindung Azure/Okta]
+*** xref:oidc-adfs.adoc[OpenID Connect (OIDC) für ADFS]
+*** xref:ibmsa.adoc[IBM Security Advisor]
+*** xref:ibmqr.adoc[IBM QRadar]
+*** xref:splunk.adoc[Splunk]
+* Referenzen
+** xref:details.adoc[Details der Umgebungsvariablen]
+** xref:cli.adoc[Befehlszeile]
+* Anmerkungen zur Veröffentlichung
+** xref:5x.adoc[5.x Versionshinweise]
+** xref:4x.adoc[4.x Versionshinweise]
+** xref:other.adoc[Integrationen und andere Komponenten]
+* UI-Erweiterung
+** xref:dashboard.adoc[5.x Dashboard]
+** xref:runtime_security.adoc[5.x Laufzeitsicherheit]
+** xref:notifications.adoc[5.x Benachrichtigungen]
+* Sicherheitshinweise und CVEs
+** xref:cve.adoc[Sicherheitshinweise und CVEs]

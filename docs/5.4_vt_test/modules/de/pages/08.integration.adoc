@@ -1,0 +1,7 @@
+= Integration von Unternehmen
+:revdate1: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /08.integration/08.integration.md
+:page-opendocs-slug:  /Integration
+
+Integration von {product-name} in die Unternehmensinfrastruktur mit RBAC, SYSLOG, SAML, LDAP...
