@@ -1,0 +1,23 @@
+= Azure DevOps
+:revdate1: 2025-05-08
+:page-revdate: {revdate}
+:page-opendocs-origin: /06.scanning/03.build/04.azuredevops/04.azuredevops.md
+:page-opendocs-slug:  /scanning/build/azuredevops
+
+== Scannen nach Schwachstellen in der Azure DevOps Build Pipeline
+
+Der {product-name} Scanner kann aus der Azure DevOps-Pipeline heraus ausgelöst werden, indem die im Azure DevOps Marketplace veröffentlichte Erweiterung {product-name} verwendet wird.
+
+image:azure_devops.png[AzureDevOps]
+
+Die Erweiterung unterstützt sowohl Remote- als auch lokales Scannen, wobei der {product-name} Controller ein Image in einer Registry während des Builds remote scannen oder einen lokalen Controller dynamisch starten kann, um das Image auf der Azure-Agent-VM zu scannen.
+
+Vergewissern Sie sich außerdem, dass ein {product-name} Scanner-Container installiert und so konfiguriert ist, dass er sich mit dem Allinone oder Controller verbindet. Ab Version 4.0 muss der neuvector/scanner-Container getrennt vom allinone oder Controller bereitgestellt werden.
+
+* Scan Image mit {product-name} integriert den {product-name} Schwachstellen-Scanner in eine Azure DevOps Pipeline.
+* Führen Sie Schwachstellen-Scans eines Container-Images nach der Image-Erstellung auf einer externen {product-name} Controller-Instanz oder auf einer lokalen {product-name} Controller-Instanz durch, die in einem Service-Container innerhalb einer Pipeline läuft.
+* Definieren Sie Schwellenwerte für fehlgeschlagene Builds auf der Grundlage der Anzahl der entdeckten Schwachstellen unterschiedlicher Schweregrade.
+* Erstellen Sie einen detaillierten Bericht eines Bildscans zur Analyse auf der Registerkarte "Build Summary".
+* Externe {product-name} Controller-Instanzen werden als Service-Endpunkte definiert, um Build-Pipeline-Definitionen von Verbindungsparametern und Anmeldeinformationen zu entkoppeln.
+
+Eine Übersicht mit Beispielbildern finden Sie unter https://marketplace.visualstudio.com/items?itemName=NeuVector.neuvector-vsts.
