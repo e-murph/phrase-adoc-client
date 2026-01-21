@@ -1,0 +1,8 @@
+= Configuration de {product-name} et accès à la console
+:revdate1: 2024-09-27
+:page-revdate: {revdate}
+:page-opendocs-origin: /03.configuration/03.configuration.md
+:page-opendocs-slug: /configuration
+
+
+Comment effectuer les configurations initiales et accéder à la console.
