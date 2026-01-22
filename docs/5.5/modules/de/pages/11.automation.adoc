@@ -1,7 +1,0 @@
-= Automatisieren {product-name}
-:revdate1: 2024-09-27
-:page-revdate: {revdate}
-:page-opendocs-origin: /11.automation/11.automation.md
-:page-opendocs-slug:  /automation
-
-{product-name} kann in den CI/CD-Workflow integriert werden, um eine automatische Überprüfung und Bereitstellung zu ermöglichen. Wir bieten Beispiele für die Verwendung der REST-API zur Automatisierung der Bereitstellung von {product-name}.

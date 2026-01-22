@@ -1,7 +1,0 @@
-= AWS Marketplace-Auflistung
-:revdate1: 2025-05-13
-:page-revdate: {revdate}
-:page-opendocs-origin: /02.deploying/06.awsmarketplace/06.awsmarketplace.md
-:page-opendocs-slug: /deploying/awsmarketplace
-
-SUSE Security (NeuVector) ist im Rahmen der Rancher Prime Suite über das https://aws.amazon.com/marketplace/pp/prodview-b6es6ar6n4siw?sr=0-3&ref_=beagle&applicationId=AWSMPContessa[Multi-Product Listing auf dem AWS Marketplace] verfügbar.

@@ -1,7 +1,0 @@
-= Déploiement des conteneurs {product-name}, des services et des configurations requises
-:revdate1: 2024-09-27
-:page-revdate: {revdate}
-:page-opendocs-origin: /02.deploying/02.deploying.md
-:page-opendocs-slug:  /déploiement
-
-Sujets pour la planification et le déploiement pour les tests et la production sur différentes plateformes en utilisant Kubernetes, Rancher, OpenShift, & Docker compose.
